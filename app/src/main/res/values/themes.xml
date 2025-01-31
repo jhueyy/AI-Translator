@@ -1,0 +1,4 @@
+<resources>
+    <style name="Theme.AITranslator" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+</resources>
