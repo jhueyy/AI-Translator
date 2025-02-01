@@ -1,34 +1,27 @@
 package csc436.aitranslator
 
-import kotlinx.coroutines.CoroutineScope
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
+import kotlinx.coroutines.withContext
 
 class OpenAIRepository {
-
-    fun translateText(text: String, callback: (String) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun translateText(text: String): String {
+        return withContext(Dispatchers.IO) {
             try {
-                val request = TranslationRequest(
-                    model = "gpt-3.5-turbo",
-                    messages = listOf(
-                        mapOf("role" to "system", "content" to "Translate this text to English."),
-                        mapOf("role" to "user", "content" to text)
+                val response = RetrofitClient.api.translate(
+                    TranslationRequest(
+                        model = "gpt-3.5-turbo",
+                        messages = listOf(
+                            mapOf("role" to "system", "content" to "Translate this text."),
+                            mapOf("role" to "user", "content" to text)
+                        )
                     )
                 )
 
-
-                val response = RetrofitClient.api.translate(request)
-
-                val translatedText = response.choices.getOrNull(0)?.message?.get("content") ?: "Translation failed."
-
-                callback(translatedText) // Send result back to UI thread
-
-            } catch (e: HttpException) {
-                callback("Error: ${e.message}")
+                response.choices.getOrNull(0)?.message?.get("content") ?: "Translation failed."
             } catch (e: Exception) {
-                callback("Translation failed.")
+                Log.e("API", "Translation error: ${e.message}")
+                "Translation failed."
             }
         }
     }

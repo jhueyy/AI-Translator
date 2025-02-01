@@ -2,12 +2,10 @@ package csc436.aitranslator
 
 import android.graphics.Color
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +14,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var translateButton: Button
     private lateinit var micButton: ImageButton
     private lateinit var speakerButton: ImageButton
-    private lateinit var textToSpeech: TextToSpeech
+    private lateinit var textToSpeechHelper: TextToSpeechHelper
+    private val repository = OpenAIRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +27,8 @@ class MainActivity : AppCompatActivity() {
         micButton = findViewById(R.id.micButton)
         speakerButton = findViewById(R.id.speakerButton)
 
-        textToSpeech = TextToSpeech(this) { status ->
-            if (status != TextToSpeech.ERROR) {
-                textToSpeech.language = Locale.ENGLISH
-            }
-        }
+        // Initialize Text-to-Speech
+        textToSpeechHelper = TextToSpeechHelper(this)
 
         translateButton.setOnClickListener {
             val text = inputText.text.toString().trim()
@@ -44,34 +40,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         speakerButton.setOnClickListener {
-            textToSpeech.speak(outputText.text.toString(), TextToSpeech.QUEUE_FLUSH, null, null)
+            textToSpeechHelper.speak(outputText.text.toString())
         }
     }
 
     private fun translateText(text: String) {
-        // Show "Translating..." before making the request
         outputText.text = "Translating..."
         outputText.setTextColor(Color.GRAY)
 
         lifecycleScope.launch {
-            try {
-                val response = RetrofitClient.api.translate(
-                    TranslationRequest(
-                        model = "gpt-3.5-turbo",
-                        messages = listOf(
-                            mapOf("role" to "system", "content" to "Translate this text."),
-                            mapOf("role" to "user", "content" to text)
-                        )
-                    )
-                )
-
-                val translatedText = response.choices.getOrNull(0)?.message?.get("content") ?: "Translation failed."
-                outputText.text = translatedText
-                outputText.setTextColor(Color.BLACK)
-            } catch (e: Exception) {
-                outputText.text = "Translation failed."
-                Toast.makeText(this@MainActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+            val translatedText = repository.translateText(text)
+            outputText.text = translatedText
+            outputText.setTextColor(Color.BLACK)
         }
+    }
+
+    override fun onDestroy() {
+        textToSpeechHelper.shutdown()
+        super.onDestroy()
     }
 }
