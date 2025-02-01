@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,23 +8,26 @@
     tools:context=".MainActivity"
     android:padding="16dp">
 
-    <!-- Input Text Box (User Types Here) -->
+    <!-- Input Text Box -->
     <EditText
         android:id="@+id/inputText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:hint="Enter text to translate"
         android:padding="12dp"
         android:textSize="16sp"
-        android:inputType="text"
+        android:inputType="textMultiLine"
+        android:gravity="top|start"
+        android:maxLines="6"
         android:background="@android:color/white"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"/>  <!-- Increased margin to push down -->
+        android:layout_marginTop="100dp"
+        android:scrollbars="vertical"/>
 
-    <!-- Microphone Button (Voice Input) -->
+    <!-- Microphone Button -->
     <ImageButton
         android:id="@+id/micButton"
         android:layout_width="48dp"
@@ -44,23 +48,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- Output Text Box (Translation Result) -->
+    <!-- Output Text Box (Displays Translation) -->
     <TextView
         android:id="@+id/outputText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:text="Translation will appear here..."
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
         android:padding="12dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/white"
         android:textColor="@android:color/black"
+        android:gravity="top|start"
+        android:maxLines="6"
+        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/translateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"/>  <!-- Pushed down for better spacing -->
+        android:layout_marginTop="16dp"/>
 
-    <!-- Speaker Button (Read Aloud Translation) -->
+    <!-- Speaker Button (Reads Translation Aloud) -->
     <ImageButton
         android:id="@+id/speakerButton"
         android:layout_width="48dp"
