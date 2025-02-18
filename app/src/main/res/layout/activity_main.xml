@@ -27,6 +27,20 @@
         android:layout_marginTop="100dp"
         android:scrollbars="vertical"/>
 
+    <!-- Lottie Loading Animation -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/loading_dots"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="false"
+        app:layout_constraintTop_toBottomOf="@id/translateButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
     <!-- Microphone Button -->
     <ImageButton
         android:id="@+id/micButton"
@@ -47,6 +61,22 @@
         app:layout_constraintTop_toBottomOf="@id/inputText"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/loadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="."
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/outputText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+
 
     <!-- Output Text Box (Displays Translation) -->
     <TextView

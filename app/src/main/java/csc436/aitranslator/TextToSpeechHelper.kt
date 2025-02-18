@@ -15,12 +15,13 @@ class TextToSpeechHelper(context: Context) {
                 Log.d("TTS", "TextToSpeech initialized successfully.")
             } else {
                 Log.e("TTS", "TextToSpeech initialization failed.")
+                textToSpeech = null // Ensure safe failure
             }
         }
     }
 
     fun speak(text: String) {
-        if (text.isNotEmpty()) {
+        if (text.isNotEmpty() && textToSpeech != null) {
             textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
             Log.d("TTS", "Speaking: $text")
         }
