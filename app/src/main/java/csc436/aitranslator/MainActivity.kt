@@ -1,6 +1,10 @@
 package csc436.aitranslator
 
 import TextToSpeechHelper
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -20,6 +24,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var micButton: ImageButton
     private lateinit var loadingAnimation: LottieAnimationView
     private lateinit var textToSpeechHelper: TextToSpeechHelper
+    private lateinit var targetLanguageSpinner: Spinner
+
+    private var selectedLanguageCode = "en" // Default to English
 
     private val viewModel: MainViewModel by viewModels { MainViewModelFactory(OpenAIRepository()) }
 
@@ -33,13 +40,59 @@ class MainActivity : AppCompatActivity() {
         speakerButton = findViewById(R.id.speakerButton)
         micButton = findViewById(R.id.micButton)
         loadingAnimation = findViewById(R.id.loadingAnimation)
+        targetLanguageSpinner = findViewById(R.id.targetLanguageSpinner)
 
         textToSpeechHelper = TextToSpeechHelper(this)
+
+
+        val copyButton: ImageButton = findViewById(R.id.copyButton)
+
+
+        copyButton.setOnClickListener {
+            val textToCopy = outputText.text.toString().trim()
+
+            // Prevent copying if the text is still the default placeholder
+            if (textToCopy.isNotEmpty() && textToCopy != "Translation will appear here...") {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("Translated Text", textToCopy)
+                clipboard.setPrimaryClip(clip)
+
+                // Change button to check icon
+                copyButton.setImageResource(R.drawable.ic_check)
+
+                // Revert back to copy icon after 1.5 seconds
+                copyButton.postDelayed({
+                    copyButton.setImageResource(R.drawable.ic_copy)
+                }, 1500)
+            }
+        }
+
+
+
+        val languages = resources.getStringArray(R.array.languages)
+        val languageCodes = resources.getStringArray(R.array.language_codes)
+
+        targetLanguageSpinner.adapter = ArrayAdapter(
+            this, android.R.layout.simple_spinner_dropdown_item, languages
+        )
+
+        targetLanguageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedLanguageCode = languageCodes[position]
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         translateButton.setOnClickListener {
             val text = inputText.text.toString().trim()
             if (text.isNotEmpty()) {
-                viewModel.translateText(text)
+                if (isNetworkAvailable()) {
+                    translateButton.isEnabled = false // Disable button while translating
+                    startTranslatingAnimation()
+                    viewModel.translateText(text, selectedLanguageCode)
+                } else {
+                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Please enter text", Toast.LENGTH_SHORT).show()
             }
@@ -49,6 +102,8 @@ class MainActivity : AppCompatActivity() {
             textToSpeechHelper.speak(outputText.text.toString())
         }
 
+
+
         observeViewModel()
     }
 
@@ -56,15 +111,39 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.translation.collectLatest { translatedText ->
                 outputText.text = translatedText
+                translateButton.text = "Translate" // Reset button text
+                translateButton.isEnabled = true   // Re-enable button
             }
         }
 
         lifecycleScope.launch {
             viewModel.loading.collectLatest { isLoading ->
-                loadingAnimation.visibility = if (isLoading) View.VISIBLE else View.GONE
-                if (isLoading) loadingAnimation.playAnimation() else loadingAnimation.cancelAnimation()
+                if (isLoading) {
+                    startTranslatingAnimation()
+                } else {
+                    translateButton.text = "Translate" // Reset when translation is done
+                    translateButton.isEnabled = true
+                }
             }
         }
+    }
+
+    private fun startTranslatingAnimation() {
+        lifecycleScope.launch {
+            var dotCount = 0
+            while (viewModel.loading.value) {
+                val dots = ".".repeat(dotCount % 4) // Cycles: "", ".", "..", "..."
+                translateButton.text = "Translating$dots"
+                dotCount++
+                kotlinx.coroutines.delay(500) // Change every 0.5 seconds
+            }
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnected
     }
 
     override fun onDestroy() {

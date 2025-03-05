@@ -14,11 +14,11 @@ class MainViewModel(private val repository: OpenAIRepository) : ViewModel() {
     private val _loading = MutableStateFlow<Boolean>(false)
     val loading: StateFlow<Boolean> = _loading
 
-    fun translateText(text: String) {
+    fun translateText(text: String, languageCode: String) {
         _loading.value = true
         viewModelScope.launch {
             try {
-                _translation.value = repository.translateText(text)
+                _translation.value = repository.translateText(text, languageCode)
             } catch (e: Exception) {
                 _translation.value = "Translation failed."
             } finally {

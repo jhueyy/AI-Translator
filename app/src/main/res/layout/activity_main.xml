@@ -22,40 +22,6 @@
         android:layout_marginTop="16dp"/>
 
 
-    <!-- Language Selection Row -->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/languageSelectionLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="center"-->
-<!--        android:padding="12dp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent">-->
-
-<!--        <Spinner-->
-<!--            android:id="@+id/sourceLanguageSpinner"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/spinner_background"-->
-<!--            android:popupBackground="@color/neon_purple"-->
-<!--            android:entries="@array/languages"/>-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:layout_marginHorizontal="12dp"-->
-<!--            android:src="@drawable/ic_swap_languages"/>-->
-
-<!--        <Spinner-->
-<!--            android:id="@+id/targetLanguageSpinner"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/spinner_background"-->
-<!--            android:popupBackground="@color/neon_purple"-->
-<!--            android:entries="@array/languages"/>-->
-<!--    </LinearLayout>-->
 
     <!-- Input Text Box -->
     <EditText
@@ -96,56 +62,95 @@
 
 
     <!-- Output Text Box (Translated Text) -->
-    <TextView
-        android:id="@+id/outputText"
+    <FrameLayout
+        android:id="@+id/outputContainer"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:text="Translation will appear here..."
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/gradient_output"
-        android:padding="16dp"
-        android:gravity="top|start"
-        android:maxLines="6"
-        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/translateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp">
+
+        <!-- Translated Output Text Box -->
+        <TextView
+            android:id="@+id/outputText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Translation will appear here..."
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/gradient_output"
+            android:padding="16dp"
+            android:gravity="top|start"
+            android:maxLines="6"
+            android:scrollbars="vertical"/>
+
+        <!-- Copy Button Inside Output Box (Bottom-Right) -->
+        <ImageButton
+            android:id="@+id/copyButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:background="@drawable/ripple_circle"
+            android:src="@drawable/ic_copy"
+            android:padding="8dp"
+            android:contentDescription="Copy Translation"/>
+    </FrameLayout>
+
 
 
     <!-- Speaker & Voice Buttons -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/outputText"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/outputContainer">
 
         <ImageButton
             android:id="@+id/micButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/ripple_circle"
-            android:src="@drawable/ic_microphone"
+            android:contentDescription="Voice Input"
             android:padding="12dp"
-            android:contentDescription="Voice Input"/>
+            android:src="@drawable/ic_microphone" />
 
         <Space
-            android:layout_width="32dp"
-            android:layout_height="1dp"/>
+            android:layout_width="16dp"
+            android:layout_height="1dp" />
+
+        <Spinner
+            android:id="@+id/targetLanguageSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/ripple_button"
+            android:popupBackground="@drawable/rounded_spinner_dropdown"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textColor="@color/text_white"/>
+
+
+
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="1dp" />
 
         <ImageButton
             android:id="@+id/speakerButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/ripple_circle"
-            android:src="@drawable/ic_speaker"
+            android:contentDescription="Play Translation"
             android:padding="12dp"
-            android:contentDescription="Play Translation"/>
+            android:src="@drawable/ic_speaker" />
     </LinearLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
