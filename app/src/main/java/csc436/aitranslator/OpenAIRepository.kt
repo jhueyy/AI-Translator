@@ -13,7 +13,7 @@ class OpenAIRepository {
                     TranslationRequest(
                         model = "gpt-4o-mini",
                         messages = listOf(
-                            mapOf("role" to "system", "content" to "Translate this text."),
+                            mapOf("role" to "system", "content" to "You are a translation assistant. Translate the following text accurately without adding extra information."),
                             mapOf("role" to "user", "content" to text)
                         )
                     )
