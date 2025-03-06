@@ -55,17 +55,19 @@ class LanguageSelectionActivity : AppCompatActivity() {
             finish()
         }
 
-        // Handle language selection
         languageListView.setOnItemClickListener { _, _, position, _ ->
-            val selectedLanguage = languages[position]
-            val selectedCode = languageCodes[position]
+            val selectedLanguage = adapter.getItem(position)
+            val selectedCode = languageCodes[languages.indexOf(selectedLanguage)] 
 
-            val resultIntent = Intent()
-            resultIntent.putExtra("selectedLanguage", selectedLanguage)
-            resultIntent.putExtra("selectedCode", selectedCode)
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish() // Close activity after selection
+            if (selectedLanguage != null) {
+                val resultIntent = Intent()
+                resultIntent.putExtra("selectedLanguage", selectedLanguage)
+                resultIntent.putExtra("selectedCode", selectedCode)
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()
+            }
         }
+
 
         // Search functionality
         searchBar.addTextChangedListener(object : TextWatcher {
