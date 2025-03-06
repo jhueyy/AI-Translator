@@ -30,6 +30,7 @@
 
         <!-- Add This: Language Selection Activity -->
         <activity android:name=".LanguageSelectionActivity" />
+        <activity android:name=".LiveChatActivity" />
 
     </application>
 
