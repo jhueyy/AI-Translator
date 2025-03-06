@@ -24,6 +24,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AI Translator"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
 
 
     <!-- Input Text Box -->
@@ -65,6 +77,7 @@
 
 
     <!-- Output Text Box (Translated Text) -->
+
     <FrameLayout
         android:id="@+id/outputContainer"
         android:layout_width="0dp"
@@ -74,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp">
 
-        <!-- Translated Output Text Box -->
+        <!-- Translated Output Text -->
         <TextView
             android:id="@+id/outputText"
             android:layout_width="match_parent"
@@ -88,18 +101,42 @@
             android:maxLines="6"
             android:scrollbars="vertical"/>
 
-        <!-- Copy Button Inside Output Box (Bottom-Right) -->
-        <ImageButton
-            android:id="@+id/copyButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <!-- Button Row (Speaker & Copy) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="8dp"
-            android:background="@drawable/ripple_circle"
-            android:src="@drawable/ic_copy"
-            android:padding="8dp"
-            android:contentDescription="Copy Translation"/>
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <!-- Speaker Button -->
+            <ImageButton
+                android:id="@+id/speakerButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_circle"
+                android:src="@drawable/ic_speaker"
+                android:padding="8dp"
+                android:contentDescription="Play Translation"/>
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="1dp"/>
+
+            <!-- Copy Button -->
+            <ImageButton
+                android:id="@+id/copyButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_circle"
+                android:src="@drawable/ic_copy"
+                android:padding="8dp"
+                android:contentDescription="Copy Translation"/>
+        </LinearLayout>
+
     </FrameLayout>
+
 
 
 
@@ -114,14 +151,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/outputContainer">
 
-        <ImageButton
-            android:id="@+id/micButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/ripple_circle"
-            android:contentDescription="Voice Input"
-            android:padding="12dp"
-            android:src="@drawable/ic_microphone" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/micButton"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:background="@drawable/ripple_circle"-->
+<!--            android:contentDescription="Voice Input"-->
+<!--            android:padding="12dp"-->
+<!--            android:src="@drawable/ic_microphone" />-->
 
         <Space
             android:layout_width="16dp"
@@ -147,14 +184,14 @@
             android:layout_width="16dp"
             android:layout_height="1dp" />
 
-        <ImageButton
-            android:id="@+id/speakerButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/ripple_circle"
-            android:contentDescription="Play Translation"
-            android:padding="12dp"
-            android:src="@drawable/ic_speaker" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/speakerButton"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:background="@drawable/ripple_circle"-->
+<!--            android:contentDescription="Play Translation"-->
+<!--            android:padding="12dp"-->
+<!--            android:src="@drawable/ic_speaker" />-->
     </LinearLayout>
 
 

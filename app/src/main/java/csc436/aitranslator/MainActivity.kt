@@ -36,14 +36,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        /*supportActionBar?.hide()*/ // hides the AI translator action bar
+        supportActionBar?.hide() // hides the AI translator action bar
 
 
         inputText = findViewById(R.id.inputText)
         outputText = findViewById(R.id.outputText)
         translateButton = findViewById(R.id.translateButton)
         speakerButton = findViewById(R.id.speakerButton)
-        micButton = findViewById(R.id.micButton)
+//        micButton = findViewById(R.id.micButton)
         loadingAnimation = findViewById(R.id.loadingAnimation)
         languageButton = findViewById(R.id.targetLanguageButton) // Change to Button
 
