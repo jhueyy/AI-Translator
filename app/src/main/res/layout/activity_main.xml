@@ -127,16 +127,19 @@
             android:layout_width="16dp"
             android:layout_height="1dp" />
 
-        <Spinner
-            android:id="@+id/targetLanguageSpinner"
+        <Button
+            android:id="@+id/targetLanguageButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/ripple_button"
-            android:popupBackground="@drawable/rounded_spinner_dropdown"
+            android:text="Select Language"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
             android:padding="8dp"
-            android:textAlignment="center"
-            android:textColor="@color/text_white"
-            android:overlapAnchor="true"/>
+            app:layout_constraintTop_toBottomOf="@id/outputContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
 
 
