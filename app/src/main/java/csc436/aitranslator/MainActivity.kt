@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         val languageCodes = resources.getStringArray(R.array.language_codes)
 
         val adapter = ArrayAdapter(this, R.layout.spinner_item, languages)
-        adapter.setDropDownViewResource(R.layout.spinner_item) // Ensures dropdown text is also white
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item) // Use a different layout for dropdown
         targetLanguageSpinner.adapter = adapter
 
 
