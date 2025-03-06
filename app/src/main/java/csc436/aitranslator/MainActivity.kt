@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         loadingAnimation = findViewById(R.id.loadingAnimation)
         languageButton = findViewById(R.id.targetLanguageButton) // Change to Button
 
+
         textToSpeechHelper = TextToSpeechHelper(this)
 
         val copyButton: ImageButton = findViewById(R.id.copyButton)

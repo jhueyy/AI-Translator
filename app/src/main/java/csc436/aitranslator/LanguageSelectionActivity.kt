@@ -57,7 +57,7 @@ class LanguageSelectionActivity : AppCompatActivity() {
 
         languageListView.setOnItemClickListener { _, _, position, _ ->
             val selectedLanguage = adapter.getItem(position)
-            val selectedCode = languageCodes[languages.indexOf(selectedLanguage)] 
+            val selectedCode = languageCodes[languages.indexOf(selectedLanguage)]
 
             if (selectedLanguage != null) {
                 val resultIntent = Intent()

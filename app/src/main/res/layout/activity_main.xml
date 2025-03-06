@@ -195,6 +195,58 @@
     </LinearLayout>
 
 
+    <!-- Footer with 3 Buttons -->
+    <LinearLayout
+        android:id="@+id/footerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/dark_background">
+
+        <!-- Chat/Microphone Button -->
+        <ImageButton
+            android:id="@+id/chatButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ripple_circle"
+            android:src="@drawable/ic_microphone"
+            android:padding="12dp"
+            android:contentDescription="Chat with Voice"/>
+
+        <Space
+            android:layout_width="40dp"
+            android:layout_height="1dp"/>
+
+        <!-- Camera Button (Bigger & Circular) -->
+        <ImageButton
+            android:id="@+id/cameraButton"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/ripple_circle"
+            android:src="@drawable/ic_camera"
+            android:padding="16dp"
+            android:contentDescription="Camera Translation"/>
+
+        <Space
+            android:layout_width="40dp"
+            android:layout_height="1dp"/>
+
+        <!-- Settings Button -->
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ripple_circle"
+            android:src="@drawable/ic_settings"
+            android:padding="12dp"
+            android:contentDescription="Settings"/>
+    </LinearLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
