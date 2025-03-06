@@ -132,7 +132,8 @@
             android:popupBackground="@drawable/rounded_spinner_dropdown"
             android:padding="8dp"
             android:textAlignment="center"
-            android:textColor="@color/text_white"/>
+            android:textColor="@color/text_white"
+            android:overlapAnchor="false"/>
 
 
 
