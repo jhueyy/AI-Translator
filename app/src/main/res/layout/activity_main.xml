@@ -133,7 +133,7 @@
             android:padding="8dp"
             android:textAlignment="center"
             android:textColor="@color/text_white"
-            android:overlapAnchor="false"/>
+            android:overlapAnchor="true"/>
 
 
 
