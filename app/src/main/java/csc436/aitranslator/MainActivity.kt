@@ -24,10 +24,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var outputText: TextView
     private lateinit var translateButton: Button
     private lateinit var speakerButton: ImageButton
-    private lateinit var micButton: ImageButton
+    private lateinit var chatButton: ImageButton // ✅ Corrected name
     private lateinit var loadingAnimation: LottieAnimationView
     private lateinit var textToSpeechHelper: TextToSpeechHelper
-    private lateinit var languageButton: Button // Change Spinner to Button
+    private lateinit var languageButton: Button
 
     private var selectedLanguageCode = "en" // Default to English
 
@@ -36,17 +36,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar?.hide() // hides the AI translator action bar
+        supportActionBar?.hide() // Hide AI Translator action bar
 
-
+        // Initialize UI components
         inputText = findViewById(R.id.inputText)
         outputText = findViewById(R.id.outputText)
         translateButton = findViewById(R.id.translateButton)
         speakerButton = findViewById(R.id.speakerButton)
-//        micButton = findViewById(R.id.micButton)
+        chatButton = findViewById(R.id.chatButton) // ✅ Correctly initialize chat button
         loadingAnimation = findViewById(R.id.loadingAnimation)
-        languageButton = findViewById(R.id.targetLanguageButton) // Change to Button
-
+        languageButton = findViewById(R.id.targetLanguageButton)
 
         textToSpeechHelper = TextToSpeechHelper(this)
 
@@ -56,6 +55,12 @@ class MainActivity : AppCompatActivity() {
         languageButton.setOnClickListener {
             val intent = Intent(this, LanguageSelectionActivity::class.java)
             startActivityForResult(intent, REQUEST_LANGUAGE_PICKER)
+        }
+
+        // Open Live Chat Activity when clicking the Chat/Microphone button
+        chatButton.setOnClickListener {
+            val intent = Intent(this, LiveChatActivity::class.java)
+            startActivity(intent)
         }
 
         inputText.setOnFocusChangeListener { _, hasFocus ->
