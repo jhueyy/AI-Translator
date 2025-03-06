@@ -7,6 +7,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +47,26 @@ class MainActivity : AppCompatActivity() {
 
 
         val copyButton: ImageButton = findViewById(R.id.copyButton)
+
+
+        inputText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                inputText.hint = ""
+            } else if (inputText.text.isEmpty()) {
+                inputText.hint = "Enter text to translate..."
+            }
+        }
+
+        findViewById<View>(R.id.rootLayout).setOnTouchListener { view, _ ->
+            inputText.clearFocus()
+            hideKeyboard()
+            view.performClick()
+            false
+        }
+
+
+
+
 
 
         copyButton.setOnClickListener {
@@ -107,6 +128,12 @@ class MainActivity : AppCompatActivity() {
 
         observeViewModel()
     }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+
 
     private fun observeViewModel() {
         lifecycleScope.launch {
