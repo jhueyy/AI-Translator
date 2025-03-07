@@ -1,3 +1,4 @@
+
 package csc436.aitranslator
 
 import android.app.Activity
