@@ -1,20 +1,13 @@
 package csc436.aitranslator
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.SeekBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import android.widget.Switch
+import androidx.appcompat.app.AlertDialog
 
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var settingsTitle: TextView
-    private lateinit var themeSwitch: Switch
     private lateinit var speechRateSeekBar: SeekBar
     private lateinit var speechPitchSeekBar: SeekBar
     private lateinit var saveButton: Button
@@ -22,6 +15,9 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var closeButton: ImageButton
 
     private lateinit var sharedPreferences: SharedPreferences
+
+    private var originalSpeechRate: Float = 1.0f
+    private var originalSpeechPitch: Float = 1.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,57 +28,110 @@ class SettingsActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE)
 
         // Initialize UI elements
-        settingsTitle = findViewById(R.id.settingsTitle)
-        themeSwitch = findViewById(R.id.themeSwitch)
         speechRateSeekBar = findViewById(R.id.speechRateSeekBar)
         speechPitchSeekBar = findViewById(R.id.speechPitchSeekBar)
         saveButton = findViewById(R.id.saveButton)
         resetButton = findViewById(R.id.resetButton)
         closeButton = findViewById(R.id.closeButton)
 
-        // Load saved settings
-        themeSwitch.isChecked = sharedPreferences.getBoolean("darkMode", false)
-        speechRateSeekBar.progress = (sharedPreferences.getFloat("speechRate", 1.0f) * 10).toInt()
-        speechPitchSeekBar.progress = (sharedPreferences.getFloat("speechPitch", 1.0f) * 10).toInt()
+        // Load saved settings (Use default if not found)
+        loadSettings()
 
-        // Theme toggle
-        themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
+        // Disable reset button initially if no changes
+        updateResetButtonState()
+
+        // Listen for changes in SeekBars
+        speechRateSeekBar.setOnSeekBarChangeListener(seekBarChangeListener)
+        speechPitchSeekBar.setOnSeekBarChangeListener(seekBarChangeListener)
 
         // Save button action
         saveButton.setOnClickListener {
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("darkMode", themeSwitch.isChecked)
-            editor.putFloat("speechRate", speechRateSeekBar.progress / 10f)
-            editor.putFloat("speechPitch", speechPitchSeekBar.progress / 10f)
-            editor.apply()
-            finish() // Close settings page
+            saveSettings()
+            finish() // closes settings activity - goes back to main
         }
 
-        // Reset button action
+        // Reset button action (Shows confirmation before reset)
         resetButton.setOnClickListener {
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("darkMode", false) // Default: Light Mode
-            editor.putFloat("speechRate", 1.0f)  // Default: Normal Speed
-            editor.putFloat("speechPitch", 1.0f) // Default: Normal Pitch
-            editor.apply()
-
-            // Reset UI components
-            themeSwitch.isChecked = false
-            speechRateSeekBar.progress = 10
-            speechPitchSeekBar.progress = 10
+            showResetConfirmationDialog()
         }
 
-        // Close button action (Return to MainActivity)
+        // Close button action (Go back to MainActivity)
         closeButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadSettings() // ✅ Reload settings when returning
+        updateResetButtonState() // ✅ Ensure reset button state is updated
+    }
+
+    // Load settings from SharedPreferences
+    private fun loadSettings() {
+        originalSpeechRate = sharedPreferences.getFloat("speechRate", 1.0f)
+        originalSpeechPitch = sharedPreferences.getFloat("speechPitch", 1.0f)
+
+        speechRateSeekBar.progress = (originalSpeechRate * 10).toInt()
+        speechPitchSeekBar.progress = (originalSpeechPitch * 10).toInt()
+
+        updateResetButtonState() // ✅ Ensure button state updates after loading settings
+    }
+
+    // Save settings
+    private fun saveSettings() {
+        val newSpeechRate = speechRateSeekBar.progress / 10f
+        val newSpeechPitch = speechPitchSeekBar.progress / 10f
+
+        val editor = sharedPreferences.edit()
+        editor.putFloat("speechRate", newSpeechRate)
+        editor.putFloat("speechPitch", newSpeechPitch)
+        editor.apply()
+
+        loadSettings() // ✅ Reload values after saving to ensure proper comparison
+    }
+
+    // Show a confirmation dialog before resetting
+    private fun showResetConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Reset Settings")
+            .setMessage("Are you sure you want to reset all settings?")
+            .setPositiveButton("Yes") { _, _ -> resetSettings() }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    // Reset settings and reload UI
+    private fun resetSettings() {
+        val editor = sharedPreferences.edit()
+        editor.putFloat("speechRate", 1.0f)
+        editor.putFloat("speechPitch", 1.0f)
+        editor.apply()
+
+        loadSettings() // ✅ Reload settings after reset
+    }
+
+    // Check if settings have changed
+    private fun hasSettingsChanged(): Boolean {
+        val currentSpeechRate = speechRateSeekBar.progress / 10f
+        val currentSpeechPitch = speechPitchSeekBar.progress / 10f
+
+        return currentSpeechRate != 1.0f || currentSpeechPitch != 1.0f
+    }
+
+    // Enable or disable reset button based on changes
+    private fun updateResetButtonState() {
+        resetButton.isEnabled = hasSettingsChanged()
+        resetButton.alpha = if (resetButton.isEnabled) 1.0f else 0.5f // Grey out if disabled
+    }
+
+    // SeekBar Change Listener
+    private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            updateResetButtonState()
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
     }
 }

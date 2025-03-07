@@ -33,16 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"/>
 
-    <!-- Dark Mode Switch -->
-    <Switch
-        android:id="@+id/themeSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dark Mode"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/settingsTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"/>
 
     <!-- Speech Rate Label -->
     <TextView
@@ -50,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="Speech Rate"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/themeSwitch"
+        app:layout_constraintTop_toBottomOf="@id/settingsTitle"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="32dp"/>
 
@@ -61,7 +51,7 @@
         android:layout_height="wrap_content"
         android:max="20"
         android:progress="10"
-        app:layout_constraintTop_toBottomOf="@id/themeSwitch"
+        app:layout_constraintTop_toBottomOf="@id/settingsTitle"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="56dp"/>
 
