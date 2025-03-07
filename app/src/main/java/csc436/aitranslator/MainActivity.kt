@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var languageButton: Button
     private lateinit var chatButton: ImageButton
     private lateinit var settingsButton: ImageButton
-    private lateinit var inputMicButton: ImageButton
+//    private lateinit var inputMicButton: ImageButton
     private lateinit var inputSpeakerButton: ImageButton
 
     private var selectedLanguageCode = "en" // Default to English
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         languageButton = findViewById(R.id.targetLanguageButton)
         chatButton = findViewById(R.id.chatButton)
         settingsButton = findViewById(R.id.settingsButton)
-        inputMicButton = findViewById(R.id.inputMicButton)
+//        inputMicButton = findViewById(R.id.inputMicButton)
         inputSpeakerButton = findViewById(R.id.inputSpeakerButton)
 
         textToSpeechHelper = TextToSpeechHelper(this)
@@ -151,9 +151,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        inputMicButton.setOnClickListener {
-            Toast.makeText(this, "Voice input not implemented yet!", Toast.LENGTH_SHORT).show()
-        }
+//        inputMicButton.setOnClickListener {
+//            Toast.makeText(this, "Voice input not implemented yet!", Toast.LENGTH_SHORT).show()
+//        }
 
         // 🔊 Play Input Text
         inputSpeakerButton.setOnClickListener {
