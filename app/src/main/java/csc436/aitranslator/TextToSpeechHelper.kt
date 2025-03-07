@@ -7,6 +7,10 @@ import java.util.*
 class TextToSpeechHelper(context: Context) {
     private var textToSpeech: TextToSpeech? = null
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    private val sharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+
+    private var speechRate: Float = sharedPreferences.getFloat("speechRate", 1.0f)
+    private var speechPitch: Float = sharedPreferences.getFloat("speechPitch", 1.0f)
 
     init {
         textToSpeech = TextToSpeech(context) { status ->
@@ -18,6 +22,7 @@ class TextToSpeechHelper(context: Context) {
                         .setUsage(android.media.AudioAttributes.USAGE_MEDIA)
                         .build()
                 )
+                applySpeechSettings() // Load saved rate & pitch
                 Log.d("TTS", "TextToSpeech initialized successfully.")
             } else {
                 Log.e("TTS", "TextToSpeech initialization failed.")
@@ -28,9 +33,17 @@ class TextToSpeechHelper(context: Context) {
 
     fun speak(text: String) {
         if (text.isNotEmpty() && textToSpeech != null) {
+            applySpeechSettings() // Ensure latest settings are applied before speaking
             textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
-            Log.d("TTS", "Speaking: $text")
+            Log.d("TTS", "Speaking: $text at rate $speechRate and pitch $speechPitch")
         }
+    }
+
+    private fun applySpeechSettings() {
+        speechRate = sharedPreferences.getFloat("speechRate", 1.0f)
+        speechPitch = sharedPreferences.getFloat("speechPitch", 1.0f)
+        textToSpeech?.setSpeechRate(speechRate)
+        textToSpeech?.setPitch(speechPitch)
     }
 
     fun shutdown() {
