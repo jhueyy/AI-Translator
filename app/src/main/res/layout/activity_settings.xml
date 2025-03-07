@@ -1,0 +1,113 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_background"
+    android:padding="16dp">
+
+    <!-- Close Button (Top-Left) -->
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ripple_circle"
+        android:src="@drawable/ic_close"
+        android:contentDescription="Close Settings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/closeButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Dark Mode Switch -->
+    <Switch
+        android:id="@+id/themeSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dark Mode"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/settingsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Speech Rate Label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speech Rate"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/themeSwitch"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"/>
+
+    <!-- Speech Rate SeekBar -->
+    <SeekBar
+        android:id="@+id/speechRateSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="20"
+        android:progress="10"
+        app:layout_constraintTop_toBottomOf="@id/themeSwitch"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="56dp"/>
+
+    <!-- Speech Pitch Label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speech Pitch"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/speechRateSeekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"/>
+
+    <!-- Speech Pitch SeekBar -->
+    <SeekBar
+        android:id="@+id/speechPitchSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="20"
+        android:progress="10"
+        app:layout_constraintTop_toBottomOf="@id/speechRateSeekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="56dp"/>
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SAVE SETTINGS"
+        android:background="@drawable/ripple_button"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/speechPitchSeekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="56dp"/>
+
+    <!-- Reset Button -->
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RESET SETTINGS"
+        android:background="@drawable/ripple_button"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/saveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

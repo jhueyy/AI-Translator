@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -24,45 +25,69 @@ class MainActivity : AppCompatActivity() {
     private lateinit var outputText: TextView
     private lateinit var translateButton: Button
     private lateinit var speakerButton: ImageButton
-    private lateinit var chatButton: ImageButton // ✅ Corrected name
+    private lateinit var copyButton: ImageButton
     private lateinit var loadingAnimation: LottieAnimationView
     private lateinit var textToSpeechHelper: TextToSpeechHelper
     private lateinit var languageButton: Button
+    private lateinit var chatButton: ImageButton
+    private lateinit var settingsButton: ImageButton
 
     private var selectedLanguageCode = "en" // Default to English
 
     private val viewModel: MainViewModel by viewModels { MainViewModelFactory(OpenAIRepository()) }
 
+    // New API: Activity Result Launcher for Language Selection
+    private val languagePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                val selectedLanguage = data?.getStringExtra("selectedLanguage")
+                val selectedCode = data?.getStringExtra("selectedCode")
+
+                if (selectedLanguage != null && selectedCode != null) {
+                    languageButton.text = selectedLanguage // Update button text
+                    selectedLanguageCode = selectedCode // Store selected language code
+                }
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar?.hide() // Hide AI Translator action bar
+        supportActionBar?.hide() // Hide the AI Translator action bar
 
-        // Initialize UI components
+        // Initialize UI elements
         inputText = findViewById(R.id.inputText)
         outputText = findViewById(R.id.outputText)
         translateButton = findViewById(R.id.translateButton)
         speakerButton = findViewById(R.id.speakerButton)
-        chatButton = findViewById(R.id.chatButton) // ✅ Correctly initialize chat button
+        copyButton = findViewById(R.id.copyButton)
         loadingAnimation = findViewById(R.id.loadingAnimation)
         languageButton = findViewById(R.id.targetLanguageButton)
+        chatButton = findViewById(R.id.chatButton)
+        settingsButton = findViewById(R.id.settingsButton)
 
         textToSpeechHelper = TextToSpeechHelper(this)
-
-        val copyButton: ImageButton = findViewById(R.id.copyButton)
 
         // Open Language Selection Screen
         languageButton.setOnClickListener {
             val intent = Intent(this, LanguageSelectionActivity::class.java)
-            startActivityForResult(intent, REQUEST_LANGUAGE_PICKER)
+            languagePickerLauncher.launch(intent) // Use new API
         }
 
-        // Open Live Chat Activity when clicking the Chat/Microphone button
+        // Open Live Chat Screen
         chatButton.setOnClickListener {
             val intent = Intent(this, LiveChatActivity::class.java)
             startActivity(intent)
         }
 
+        // Open Settings Screen
+        settingsButton.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Remove hint when typing
         inputText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 inputText.hint = ""
@@ -71,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Hide keyboard when clicking outside input field
         findViewById<View>(R.id.rootLayout).setOnTouchListener { view, _ ->
             inputText.clearFocus()
             hideKeyboard()
@@ -78,6 +104,7 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
+        // Copy translated text
         copyButton.setOnClickListener {
             val textToCopy = outputText.text.toString().trim()
             if (textToCopy.isNotEmpty() && textToCopy != "Translation will appear here...") {
@@ -95,6 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Handle translation button
         translateButton.setOnClickListener {
             val text = inputText.text.toString().trim()
             if (text.isNotEmpty()) {
@@ -110,25 +138,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Handle speech output
         speakerButton.setOnClickListener {
             textToSpeechHelper.speak(outputText.text.toString())
         }
 
         observeViewModel()
-    }
-
-    // Handle result from LanguageSelectionActivity
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_LANGUAGE_PICKER && resultCode == Activity.RESULT_OK) {
-            val selectedLanguage = data?.getStringExtra("selectedLanguage")
-            val selectedCode = data?.getStringExtra("selectedCode")
-
-            if (selectedLanguage != null && selectedCode != null) {
-                languageButton.text = selectedLanguage // Update button text
-                selectedLanguageCode = selectedCode // Store the selected language code
-            }
-        }
     }
 
     private fun hideKeyboard() {
@@ -178,9 +193,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         textToSpeechHelper.shutdown()
         super.onDestroy()
-    }
-
-    companion object {
-        private const val REQUEST_LANGUAGE_PICKER = 1
     }
 }
