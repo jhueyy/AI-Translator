@@ -39,23 +39,68 @@
 
 
     <!-- Input Text Box -->
-    <EditText
-        android:id="@+id/inputText"
+    <!-- Input Text Box with Buttons -->
+    <FrameLayout
+        android:id="@+id/inputContainer"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:hint="Enter text to translate..."
-        android:textColorHint="@color/text_white"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:background="@drawable/gradient_output"
-        android:padding="16dp"
-        android:gravity="top|start"
-        android:maxLines="6"
-        android:scrollbars="vertical"
+        android:layout_height="200dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginTop="100dp">
+
+        <!-- Input Text Box -->
+        <EditText
+            android:id="@+id/inputText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter text to translate..."
+            android:textColorHint="@color/text_white"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:background="@drawable/gradient_output"
+            android:padding="16dp"
+            android:gravity="top|start"
+            android:maxLines="6"
+            android:scrollbars="vertical"/>
+
+        <!-- Button Row (Mic & Speaker) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <!-- Microphone Button -->
+            <ImageButton
+                android:id="@+id/inputMicButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/ripple_circle"
+                android:src="@drawable/ic_microphone"
+                android:padding="8dp"
+                android:contentDescription="Voice Input"/>
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="1dp"/>
+
+            <!-- Speaker Button -->
+            <ImageButton
+                android:id="@+id/inputSpeakerButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/ripple_circle"
+                android:src="@drawable/ic_speaker"
+                android:padding="8dp"
+                android:contentDescription="Play Input Text"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+
 
 
     <!-- Translate Button -->
@@ -68,7 +113,7 @@
         android:textColor="@android:color/white"
         android:background="@drawable/ripple_button"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/inputText"
+        app:layout_constraintTop_toBottomOf="@id/inputContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -81,7 +126,7 @@
     <FrameLayout
         android:id="@+id/outputContainer"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         app:layout_constraintTop_toBottomOf="@id/translateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,8 +158,8 @@
             <!-- Speaker Button -->
             <ImageButton
                 android:id="@+id/speakerButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/ripple_circle"
                 android:src="@drawable/ic_speaker"
                 android:padding="8dp"
@@ -127,8 +172,8 @@
             <!-- Copy Button -->
             <ImageButton
                 android:id="@+id/copyButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/ripple_circle"
                 android:src="@drawable/ic_copy"
                 android:padding="8dp"
