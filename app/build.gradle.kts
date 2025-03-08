@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.language.id.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,9 +71,10 @@ dependencies {
 
     implementation(libs.material3)
 
-    implementation("androidx.compose.material3:material3:1.2.0")
+    implementation(libs.androidx.material3.v120)
 
     implementation(libs.lottie)
+
 
 
 

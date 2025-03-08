@@ -40,4 +40,37 @@ class OpenAIRepository {
             }
         }
     }
+
+    suspend fun detectLanguage(text: String): String? {
+        return withContext(Dispatchers.IO) {
+            try {
+                Log.d("API_REQUEST", "Detecting language for: $text")
+
+                val systemMessage = "You are a language detection assistant. Identify the language of the following text and return its ISO 639-1 code only (e.g., 'en' for English, 'es' for Spanish)."
+
+                val response = RetrofitClient.api.translate(
+                    TranslationRequest(
+                        model = "gpt-4o-mini",
+                        messages = listOf(
+                            mapOf("role" to "system", "content" to systemMessage),
+                            mapOf("role" to "user", "content" to text)
+                        )
+                    )
+                )
+
+                Log.d("API_RESPONSE", "Detected Language: ${response.choices}")
+
+                if (response.choices.isNotEmpty()) {
+                    response.choices.first().message["content"]
+                } else {
+                    Log.e("API", "Empty response from server.")
+                    null
+                }
+            } catch (e: Exception) {
+                Log.e("API", "Language detection error: ${e.message}", e)
+                null
+            }
+        }
+    }
+
 }

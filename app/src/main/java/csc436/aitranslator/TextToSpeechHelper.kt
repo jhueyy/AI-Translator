@@ -1,12 +1,12 @@
+package csc436.aitranslator
+
 import android.content.Context
-import android.media.AudioManager
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import java.util.*
 
 class TextToSpeechHelper(context: Context) {
     private var textToSpeech: TextToSpeech? = null
-    private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private val sharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
     private var speechRate: Float = sharedPreferences.getFloat("speechRate", 1.0f)

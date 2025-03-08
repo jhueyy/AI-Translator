@@ -1,6 +1,5 @@
 package csc436.aitranslator
 
-import TextToSpeechHelper
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var languageButton: Button
     private lateinit var chatButton: ImageButton
     private lateinit var settingsButton: ImageButton
-//    private lateinit var inputMicButton: ImageButton
+    //    private lateinit var inputMicButton: ImageButton
     private lateinit var inputSpeakerButton: ImageButton
 
     private var selectedLanguageCode = "en" // Default to English
