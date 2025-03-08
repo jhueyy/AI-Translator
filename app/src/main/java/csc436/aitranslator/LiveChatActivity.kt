@@ -1,6 +1,7 @@
 package csc436.aitranslator
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
@@ -29,6 +30,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var speechRecognizer: SpeechRecognizer? = null
     private lateinit var textToSpeech: TextToSpeech
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val openAIRepository = OpenAIRepository()
 
@@ -37,12 +39,16 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(R.layout.activity_live_chat)
         supportActionBar?.hide()
 
+        sharedPreferences = getSharedPreferences("LanguagePrefs", MODE_PRIVATE)
+
         closeButton = findViewById(R.id.closeButton)
         leftLanguageButton = findViewById(R.id.leftLanguageButton)
         rightLanguageButton = findViewById(R.id.rightLanguageButton)
         microphoneButton = findViewById(R.id.microphoneButton)
 
         textToSpeech = TextToSpeech(this, this)
+
+        loadSavedLanguages() // Load last used languages
 
         closeButton.setOnClickListener { finish() }
 
@@ -70,7 +76,11 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             if (result.resultCode == RESULT_OK) {
                 val data = result.data
                 leftLanguageCode = data?.getStringExtra("selectedCode")
-                leftLanguageButton.text = data?.getStringExtra("selectedLanguage")
+                val selectedLanguage = data?.getStringExtra("selectedLanguage")
+                leftLanguageButton.text = selectedLanguage
+
+                saveLanguageSelection("leftLanguageCode", leftLanguageCode)
+                saveLanguageSelection("leftLanguageText", selectedLanguage)
             }
         }
 
@@ -79,9 +89,28 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             if (result.resultCode == RESULT_OK) {
                 val data = result.data
                 rightLanguageCode = data?.getStringExtra("selectedCode")
-                rightLanguageButton.text = data?.getStringExtra("selectedLanguage")
+                val selectedLanguage = data?.getStringExtra("selectedLanguage")
+                rightLanguageButton.text = selectedLanguage
+
+                saveLanguageSelection("rightLanguageCode", rightLanguageCode)
+                saveLanguageSelection("rightLanguageText", selectedLanguage)
             }
         }
+
+    private fun saveLanguageSelection(key: String, value: String?) {
+        sharedPreferences.edit().putString(key, value).apply()
+    }
+
+    private fun loadSavedLanguages() {
+        leftLanguageCode = sharedPreferences.getString("leftLanguageCode", null)
+        rightLanguageCode = sharedPreferences.getString("rightLanguageCode", null)
+
+        val leftLanguageText = sharedPreferences.getString("leftLanguageText", "Select Language")
+        val rightLanguageText = sharedPreferences.getString("rightLanguageText", "Select Language")
+
+        leftLanguageButton.text = leftLanguageText
+        rightLanguageButton.text = rightLanguageText
+    }
 
     private fun startVoiceRecognition() {
         if (speechRecognizer == null) {
@@ -126,25 +155,21 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            // Detect the language first
             val detectedLanguage = openAIRepository.detectLanguage(detectedText)
 
-            // Determine target language
             val targetLanguage = when (detectedLanguage) {
-                leftLanguageCode -> rightLanguageCode // Translate from left to right
-                rightLanguageCode -> leftLanguageCode // Translate from right to left
+                leftLanguageCode -> rightLanguageCode
+                rightLanguageCode -> leftLanguageCode
                 else -> {
                     Toast.makeText(this@LiveChatActivity, "Unrecognized language!", Toast.LENGTH_SHORT).show()
                     return@launch
                 }
             }
 
-            // Translate the detected text
             val translatedText = openAIRepository.translateText(detectedText, targetLanguage!!)
             speakText(translatedText, targetLanguage)
         }
     }
-
 
     private fun speakText(text: String, languageCode: String) {
         val locale = when (languageCode) {
