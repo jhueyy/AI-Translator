@@ -13,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var closeButton: ImageButton
     private lateinit var leftLanguageButton: Button
     private lateinit var rightLanguageButton: Button
-    private lateinit var microphoneButton: ImageButton
+    private lateinit var microphoneAnimation: LottieAnimationView
 
     private var leftLanguageCode: String? = null
     private var rightLanguageCode: String? = null
@@ -44,7 +45,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         closeButton = findViewById(R.id.closeButton)
         leftLanguageButton = findViewById(R.id.leftLanguageButton)
         rightLanguageButton = findViewById(R.id.rightLanguageButton)
-        microphoneButton = findViewById(R.id.microphoneButton)
+        microphoneAnimation = findViewById(R.id.microphoneAnimation)
 
         textToSpeech = TextToSpeech(this, this)
 
@@ -62,7 +63,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             rightLanguagePickerLauncher.launch(intent)
         }
 
-        microphoneButton.setOnClickListener {
+        microphoneAnimation.setOnClickListener {
             if (leftLanguageCode == null || rightLanguageCode == null) {
                 Toast.makeText(this, "Please select two languages first!", Toast.LENGTH_SHORT).show()
             } else {
@@ -119,10 +120,16 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, leftLanguageCode ?: Locale.getDefault().language)
         }
 
         speechRecognizer?.setRecognitionListener(object : RecognitionListener {
+            override fun onReadyForSpeech(params: Bundle?) {
+                microphoneAnimation.playAnimation() // Start animation
+            }
+
+            override fun onBeginningOfSpeech() {}
+
             override fun onResults(results: Bundle?) {
                 val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 if (!matches.isNullOrEmpty()) {
@@ -130,17 +137,20 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Log.d("SpeechRecognition", "Detected: $detectedText")
                     processTranslation(detectedText)
                 }
+                microphoneAnimation.pauseAnimation() // Stop animation after result
             }
 
             override fun onError(error: Int) {
                 Toast.makeText(this@LiveChatActivity, "Speech recognition error!", Toast.LENGTH_SHORT).show()
+                microphoneAnimation.pauseAnimation() // Stop animation on error
             }
 
-            override fun onReadyForSpeech(params: Bundle?) {}
-            override fun onBeginningOfSpeech() {}
+            override fun onEndOfSpeech() {
+                microphoneAnimation.pauseAnimation() // Stop animation when done
+            }
+
             override fun onRmsChanged(rmsdB: Float) {}
             override fun onBufferReceived(buffer: ByteArray?) {}
-            override fun onEndOfSpeech() {}
             override fun onPartialResults(partialResults: Bundle?) {}
             override fun onEvent(eventType: Int, params: Bundle?) {}
         })

@@ -21,19 +21,22 @@
         android:layout_marginStart="16dp"/>
 
     <!-- Large Microphone Button (Centered) -->
-    <ImageButton
-        android:id="@+id/microphoneButton"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:background="@drawable/ripple_circle"
-        android:src="@drawable/ic_microphone"
-        android:padding="24dp"
-        android:contentDescription="Start Speaking"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/microphoneAnimation"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:background="@drawable/glow_effect"
+        app:lottie_rawRes="@raw/bubble_animation"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintTop_toBottomOf="@id/closeButton"
         app:layout_constraintBottom_toTopOf="@id/languageHintText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="80dp"/>
+
 
     <!-- Instructional Text -->
     <TextView
