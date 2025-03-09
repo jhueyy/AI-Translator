@@ -30,8 +30,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var languageButton: Button
     private lateinit var chatButton: ImageButton
     private lateinit var settingsButton: ImageButton
-    //    private lateinit var inputMicButton: ImageButton
+    private lateinit var cameraButton: ImageButton
     private lateinit var inputSpeakerButton: ImageButton
+
+
 
     private var selectedLanguageCode = "en" // Default to English
 
@@ -52,6 +54,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    private val cameraLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val extractedText = result.data?.getStringExtra("extracted_text")
+                if (!extractedText.isNullOrEmpty()) {
+                    inputText.setText(extractedText) // Show OCR result in input box
+                    translateButton.performClick() // Auto-translate the extracted text
+                }
+            }
+        }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -67,9 +81,8 @@ class MainActivity : AppCompatActivity() {
         languageButton = findViewById(R.id.targetLanguageButton)
         chatButton = findViewById(R.id.chatButton)
         settingsButton = findViewById(R.id.settingsButton)
-//        inputMicButton = findViewById(R.id.inputMicButton)
         inputSpeakerButton = findViewById(R.id.inputSpeakerButton)
-
+        cameraButton = findViewById(R.id.cameraButton)
         textToSpeechHelper = TextToSpeechHelper(this)
 
         // Open Language Selection Screen
@@ -88,6 +101,11 @@ class MainActivity : AppCompatActivity() {
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
+        }
+
+        cameraButton.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            cameraLauncher.launch(intent)
         }
 
         // Remove hint when typing
