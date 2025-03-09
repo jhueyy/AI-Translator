@@ -31,7 +31,8 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var speechRecognizer: SpeechRecognizer? = null
     private lateinit var textToSpeech: TextToSpeech
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var languagePreferences: SharedPreferences
+    private lateinit var speechPreferences: SharedPreferences
 
     private val openAIRepository = OpenAIRepository()
 
@@ -40,7 +41,9 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(R.layout.activity_live_chat)
         supportActionBar?.hide()
 
-        sharedPreferences = getSharedPreferences("LanguagePrefs", MODE_PRIVATE)
+        // Initialize SharedPreferences separately
+        languagePreferences = getSharedPreferences("LanguagePrefs", MODE_PRIVATE)
+        speechPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE)
 
         closeButton = findViewById(R.id.closeButton)
         leftLanguageButton = findViewById(R.id.leftLanguageButton)
@@ -49,7 +52,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         textToSpeech = TextToSpeech(this, this)
 
-        loadSavedLanguages() // Load last used languages
+        loadSavedLanguages()
 
         closeButton.setOnClickListener { finish() }
 
@@ -99,15 +102,15 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
     private fun saveLanguageSelection(key: String, value: String?) {
-        sharedPreferences.edit().putString(key, value).apply()
+        languagePreferences.edit().putString(key, value).apply()
     }
 
     private fun loadSavedLanguages() {
-        leftLanguageCode = sharedPreferences.getString("leftLanguageCode", null)
-        rightLanguageCode = sharedPreferences.getString("rightLanguageCode", null)
+        leftLanguageCode = languagePreferences.getString("leftLanguageCode", null)
+        rightLanguageCode = languagePreferences.getString("rightLanguageCode", null)
 
-        val leftLanguageText = sharedPreferences.getString("leftLanguageText", "Select Language")
-        val rightLanguageText = sharedPreferences.getString("rightLanguageText", "Select Language")
+        val leftLanguageText = languagePreferences.getString("leftLanguageText", "Select Language")
+        val rightLanguageText = languagePreferences.getString("rightLanguageText", "Select Language")
 
         leftLanguageButton.text = leftLanguageText
         rightLanguageButton.text = rightLanguageText
@@ -188,6 +191,15 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             else -> Locale.getDefault()
         }
         textToSpeech.language = locale
+
+        // Load speech rate and pitch settings
+        val speechRate = speechPreferences.getFloat("speechRate", 1.0f)
+        val speechPitch = speechPreferences.getFloat("speechPitch", 1.0f)
+
+        // Apply speech settings
+        textToSpeech.setSpeechRate(speechRate)
+        textToSpeech.setPitch(speechPitch)
+
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
 
@@ -201,6 +213,12 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             textToSpeech.language = Locale.US
+
+            // Apply stored speech settings on initialization
+            val speechRate = speechPreferences.getFloat("speechRate", 1.0f)
+            val speechPitch = speechPreferences.getFloat("speechPitch", 1.0f)
+            textToSpeech.setSpeechRate(speechRate)
+            textToSpeech.setPitch(speechPitch)
         }
     }
 }
