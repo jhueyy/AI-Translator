@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">KI-Übersetzer</string>
+
+    <!-- Kamera -->
+    <string name="camera_title">Kamera</string>
+    <string name="capture_image">Bild aufnehmen</string>
+    <string name="delete_image">Bild löschen</string>
+    <string name="no_text_found">Kein Text gefunden.</string>
+    <string name="no_image_found">Kein Bild gefunden!</string>
+    <string name="failed_to_capture">Fehler beim Aufnehmen des Bildes</string>
+    <string name="failed_to_process">Fehler bei der Bildverarbeitung</string>
+    <string name="failed_to_extract_text">OCR-Fehler: %1$s</string>
+
+    <!-- Übersetzung -->
+    <string name="translate">Übersetzen</string>
+    <string name="translating">Übersetzung läuft</string>
+    <string name="translation_placeholder">Die Übersetzung wird hier angezeigt...</string>
+    <string name="translation_failed">Übersetzung fehlgeschlagen.</string>
+
+    <!-- Sprachauswahl -->
+    <string name="select_language">Sprache auswählen</string>
+    <string name="search_hint">Sprache suchen...</string>
+    <string name="close">Schließen</string>
+
+    <!-- Live-Chat -->
+    <string name="live_chat_title">Live-Chat</string>
+    <string name="select_two_languages">Bitte wählen Sie zuerst zwei Sprachen aus!</string>
+    <string name="speech_recognition_error">Fehler bei der Spracherkennung!</string>
+    <string name="language_codes_missing">Sprachcodes fehlen!</string>
+    <string name="unrecognized_language">Unbekannte Sprache!</string>
+
+    <!-- Hauptaktivität -->
+    <string name="enter_text_hint">Text zum Übersetzen eingeben...</string>
+    <string name="enter_text_to_translate">Bitte Text eingeben</string>
+    <string name="no_internet">Keine Internetverbindung</string>
+    <string name="copied_text">Text kopiert</string>
+    <string name="play_translation">Übersetzung abspielen</string>
+    <string name="play_input_text">Eingabetext abspielen</string>
+    <string name="copy_translation">Übersetzung kopieren</string>
+    <string name="chat_with_voice">Sprach-Chat</string>
+    <string name="camera_translation">Kamera-Übersetzung</string>
+    <string name="settings">Einstellungen</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_title">Einstellungen</string>
+    <string name="speech_rate">Sprechgeschwindigkeit</string>
+    <string name="speech_pitch">Stimmlage</string>
+    <string name="save">Speichern</string>
+    <string name="reset">Zurücksetzen</string>
+    <string name="reset_settings">Einstellungen zurücksetzen</string>
+    <string name="reset_confirmation">Sind Sie sicher, dass Sie alle Einstellungen zurücksetzen möchten?</string>
+    <string name="yes">Ja</string>
+    <string name="cancel">Abbrechen</string>
+</resources>

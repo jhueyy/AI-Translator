@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Tradutor IA</string>
+
+    <!-- Câmera -->
+    <string name="camera_title">Câmera</string>
+    <string name="capture_image">Capturar imagem</string>
+    <string name="delete_image">Excluir imagem</string>
+    <string name="no_text_found">Nenhum texto encontrado.</string>
+    <string name="no_image_found">Nenhuma imagem encontrada!</string>
+    <string name="failed_to_capture">Erro ao capturar imagem</string>
+    <string name="failed_to_process">Erro ao processar imagem</string>
+    <string name="failed_to_extract_text">Erro OCR: %1$s</string>
+
+    <!-- Tradução -->
+    <string name="translate">Traduzir</string>
+    <string name="translating">Traduzindo</string>
+    <string name="translation_placeholder">A tradução aparecerá aqui...</string>
+    <string name="translation_failed">Falha na tradução.</string>
+
+    <!-- Seleção de idioma -->
+    <string name="select_language">Selecionar idioma</string>
+    <string name="search_hint">Pesquisar idioma...</string>
+    <string name="close">Fechar</string>
+
+    <!-- Chat ao vivo -->
+    <string name="live_chat_title">Chat ao vivo</string>
+    <string name="select_two_languages">Por favor, selecione dois idiomas primeiro!</string>
+    <string name="speech_recognition_error">Erro no reconhecimento de voz!</string>
+    <string name="language_codes_missing">Códigos de idioma ausentes!</string>
+    <string name="unrecognized_language">Idioma não reconhecido!</string>
+
+    <!-- Atividade principal -->
+    <string name="enter_text_hint">Digite o texto para traduzir...</string>
+    <string name="enter_text_to_translate">Digite o texto</string>
+    <string name="no_internet">Sem conexão com a Internet</string>
+    <string name="copied_text">Texto copiado</string>
+    <string name="play_translation">Reproduzir tradução</string>
+    <string name="play_input_text">Reproduzir texto de entrada</string>
+    <string name="copy_translation">Copiar tradução</string>
+    <string name="chat_with_voice">Bate-papo por voz</string>
+    <string name="camera_translation">Tradução por câmera</string>
+    <string name="settings">Configurações</string>
+
+    <!-- Configurações -->
+    <string name="settings_title">Configurações</string>
+    <string name="speech_rate">Velocidade da fala</string>
+    <string name="speech_pitch">Tom da voz</string>
+    <string name="save">Salvar</string>
+    <string name="reset">Redefinir</string>
+    <string name="reset_settings">Redefinir configurações</string>
+    <string name="reset_confirmation">Tem certeza de que deseja redefinir todas as configurações?</string>
+    <string name="yes">Sim</string>
+    <string name="cancel">Cancelar</string>
+</resources>

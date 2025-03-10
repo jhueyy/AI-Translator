@@ -5,8 +5,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -62,10 +64,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    /* TEST SYSTEM LANGUAGE: call in main */
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
+
+        /* TEST SYSTEM LANGUAGE: change language code to test*/
+        
 
         inputText = findViewById(R.id.inputText)
         outputText = findViewById(R.id.outputText)

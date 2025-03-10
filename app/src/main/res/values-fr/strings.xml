@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Traducteur IA</string>
+
+    <!-- Écran de l'appareil photo -->
+    <string name="camera_title">Appareil photo</string>
+    <string name="capture_image">Capturer l\'image</string>
+    <string name="delete_image">Supprimer l\'image</string>
+    <string name="no_text_found">Aucun texte trouvé.</string>
+    <string name="no_image_found">Aucune image trouvée !</string>
+    <string name="failed_to_capture">Échec de la capture d\'image</string>
+    <string name="failed_to_process">Échec du traitement de l\'image</string>
+    <string name="failed_to_extract_text">Échec de l\'OCR : %1$s</string>
+
+    <!-- Traduction -->
+    <string name="translate">Traduire</string>
+    <string name="translating">Traduction en cours</string>
+    <string name="translation_placeholder">La traduction apparaîtra ici...</string>
+    <string name="translation_failed">La traduction a échoué.</string>
+
+    <!-- Sélection de la langue -->
+    <string name="select_language">Sélectionner une langue</string>
+    <string name="search_hint">Rechercher une langue...</string>
+    <string name="close">Fermer</string>
+
+    <!-- Chat en direct -->
+    <string name="live_chat_title">Chat en direct</string>
+    <string name="select_two_languages">Veuillez sélectionner deux langues d\'abord !</string>
+    <string name="speech_recognition_error">Erreur de reconnaissance vocale !</string>
+    <string name="language_codes_missing">Codes de langue manquants !</string>
+    <string name="unrecognized_language">Langue non reconnue !</string>
+
+    <!-- Activité principale -->
+    <string name="enter_text_hint">Saisissez du texte à traduire...</string>
+    <string name="enter_text_to_translate">Veuillez saisir du texte</string>
+    <string name="no_internet">Pas de connexion Internet</string>
+    <string name="copied_text">Texte copié</string>
+    <string name="play_translation">Lire la traduction</string>
+    <string name="play_input_text">Lire le texte saisi</string>
+    <string name="copy_translation">Copier la traduction</string>
+    <string name="chat_with_voice">Chat vocal</string>
+    <string name="camera_translation">Traduction avec l\'appareil photo</string>
+    <string name="settings">Paramètres</string>
+
+    <!-- Paramètres -->
+    <string name="settings_title">Paramètres</string>
+    <string name="speech_rate">Vitesse de la voix</string>
+    <string name="speech_pitch">Tonalité de la voix</string>
+    <string name="save">Enregistrer</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="reset_settings">Réinitialiser les paramètres</string>
+    <string name="reset_confirmation">Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?</string>
+    <string name="yes">Oui</string>
+    <string name="cancel">Annuler</string>
+</resources>

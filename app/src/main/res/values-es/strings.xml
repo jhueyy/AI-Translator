@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Traductor AI</string>
 
-    <!-- Camera Screen -->
+    <!-- Pantalla de Cámara -->
     <string name="camera_title">Cámara</string>
     <string name="capture_image">Capturar imagen</string>
     <string name="delete_image">Eliminar imagen</string>
@@ -11,25 +11,25 @@
     <string name="failed_to_process">Error al procesar la imagen</string>
     <string name="failed_to_extract_text">Error OCR: %1$s</string>
 
-    <!-- Translation -->
+    <!-- Traducción -->
     <string name="translate">Traducir</string>
     <string name="translating">Traduciendo</string>
     <string name="translation_placeholder">La traducción aparecerá aquí...</string>
     <string name="translation_failed">La traducción falló.</string>
 
-    <!-- Language Selection Screen -->
+    <!-- Selección de Idioma -->
     <string name="select_language">Seleccionar idioma</string>
     <string name="search_hint">Buscar un idioma...</string>
     <string name="close">Cerrar</string>
 
-    <!-- Live Chat Screen -->
+    <!-- Chat en Vivo -->
     <string name="live_chat_title">Chat en vivo</string>
     <string name="select_two_languages">¡Por favor, selecciona dos idiomas primero!</string>
     <string name="speech_recognition_error">¡Error en el reconocimiento de voz!</string>
     <string name="language_codes_missing">¡Faltan códigos de idioma!</string>
     <string name="unrecognized_language">¡Idioma no reconocido!</string>
 
-    <!-- Main Activity -->
+    <!-- Actividad Principal -->
     <string name="enter_text_hint">Ingresa texto para traducir...</string>
     <string name="enter_text_to_translate">Por favor, ingresa texto</string>
     <string name="no_internet">Sin conexión a internet</string>
@@ -37,11 +37,11 @@
     <string name="play_translation">Reproducir traducción</string>
     <string name="play_input_text">Reproducir texto de entrada</string>
     <string name="copy_translation">Copiar traducción</string>
-    <string name="chat_with_voice">Chatear con voz</string>
+    <string name="chat_with_voice">Chat de voz</string>
     <string name="camera_translation">Traducción con cámara</string>
     <string name="settings">Configuración</string>
 
-    <!-- Settings Screen -->
+    <!-- Configuración -->
     <string name="settings_title">Configuración</string>
     <string name="speech_rate">Velocidad de voz</string>
     <string name="speech_pitch">Tono de voz</string>

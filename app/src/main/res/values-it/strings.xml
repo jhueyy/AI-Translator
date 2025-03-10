@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Traduttore AI</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">Fotocamera</string>
+    <string name="capture_image">Acquisisci immagine</string>
+    <string name="delete_image">Elimina immagine</string>
+    <string name="no_text_found">Nessun testo trovato.</string>
+    <string name="no_image_found">Nessuna immagine trovata!</string>
+    <string name="failed_to_capture">Acquisizione immagine non riuscita</string>
+    <string name="failed_to_process">Elaborazione immagine non riuscita</string>
+    <string name="failed_to_extract_text">Errore OCR: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">Traduci</string>
+    <string name="translating">Traduzione in corso</string>
+    <string name="translation_placeholder">La traduzione apparirà qui...</string>
+    <string name="translation_failed">Traduzione non riuscita.</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">Seleziona lingua</string>
+    <string name="search_hint">Cerca una lingua...</string>
+    <string name="close">Chiudi</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">Chat vocale</string>
+    <string name="select_two_languages">Seleziona due lingue prima di continuare!</string>
+    <string name="speech_recognition_error">Errore nel riconoscimento vocale!</string>
+    <string name="language_codes_missing">Codici lingua mancanti!</string>
+    <string name="unrecognized_language">Lingua non riconosciuta!</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">Inserisci il testo da tradurre...</string>
+    <string name="enter_text_to_translate">Inserisci un testo</string>
+    <string name="no_internet">Nessuna connessione a Internet</string>
+    <string name="copied_text">Testo copiato</string>
+    <string name="play_translation">Riproduci traduzione</string>
+    <string name="play_input_text">Riproduci testo inserito</string>
+    <string name="copy_translation">Copia traduzione</string>
+    <string name="chat_with_voice">Chat vocale</string>
+    <string name="camera_translation">Traduzione con fotocamera</string>
+    <string name="settings">Impostazioni</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Impostazioni</string>
+    <string name="speech_rate">Velocità della voce</string>
+    <string name="speech_pitch">Tono della voce</string>
+    <string name="save">Salva</string>
+    <string name="reset">Reimposta</string>
+    <string name="reset_settings">Reimposta impostazioni</string>
+    <string name="reset_confirmation">Sei sicuro di voler ripristinare tutte le impostazioni?</string>
+    <string name="yes">Sì</string>
+    <string name="cancel">Annulla</string>
+</resources>
