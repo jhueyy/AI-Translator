@@ -1,45 +1,84 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center"
     android:background="@color/dark_background">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        android:background="@android:color/darker_gray" />
+    <!-- Close Button (X) - Top Left (Absolute Positioning) -->
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ripple_circle"
+        android:src="@drawable/ic_close"
+        android:contentDescription="Close"
+        android:padding="8dp"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"/>
 
-    <TextView
-        android:id="@+id/textView"
+    <!-- Main Content - LinearLayout (Stacked UI Elements) -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Extracted text will appear here"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"
-        android:padding="10dp"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/captureButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Capture Image"
-        android:textSize="18sp"
-        android:background="@drawable/ripple_button"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="16dp"/>
+        <!-- Captured Image Preview -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Captured Image"/>
 
-    <Button
-        android:id="@+id/translateButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Translate Text"
-        android:textSize="18sp"
-        android:background="@drawable/ripple_button"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="16dp"/>
-</LinearLayout>
+        <!-- Extracted Text (Moved Further Down) -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Extracted text will appear here"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@drawable/gradient_output"
+            android:minHeight="80dp"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Capture Image Button (First) -->
+        <Button
+            android:id="@+id/captureButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Capture Image"
+            android:textSize="18sp"
+            android:background="@drawable/ripple_button"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Language Selection Button (Now Second) -->
+        <Button
+            android:id="@+id/languageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Language"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/ripple_button"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Translate Extracted Text Button (Last) -->
+        <Button
+            android:id="@+id/translateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Translate Text"
+            android:textSize="18sp"
+            android:background="@drawable/ripple_button"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+
+</FrameLayout>

@@ -74,8 +74,8 @@ dependencies {
     implementation(libs.androidx.material3.v120)
 
     implementation(libs.lottie)
-    implementation(libs.tess.two)
-    implementation("com.rmtheis:tess-two:9.1.0")
+    implementation(libs.text.recognition)
+    implementation("com.google.mlkit:text-recognition:16.0.0")
 
 
 
