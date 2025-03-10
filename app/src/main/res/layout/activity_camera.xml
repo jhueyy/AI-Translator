@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_background">
 
-    <!-- Close Button (X) - Top Left (Absolute Positioning) -->
+    <!-- Close Button (X) - Top Left -->
     <ImageButton
         android:id="@+id/closeButton"
         android:layout_width="48dp"
@@ -16,24 +16,38 @@
         android:layout_marginTop="24dp"
         android:layout_marginStart="16dp"/>
 
-    <!-- Main Content - LinearLayout (Stacked UI Elements) -->
+    <!-- Title (Centered at the Top) -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="30dp"/>
+
+    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="80dp">  <!-- Pushed content down -->
 
-        <!-- Captured Image Preview -->
+        <!-- Captured Image -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:scaleType="centerCrop"
             android:background="@android:color/darker_gray"
-            android:contentDescription="Captured Image"/>
+            android:contentDescription="Captured Image"
+            android:layout_marginTop="20dp"/>
 
-        <!-- Extracted Text (Moved Further Down) -->
+        <!-- Extracted Text -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -47,7 +61,7 @@
             android:minHeight="80dp"
             android:layout_marginTop="16dp"/>
 
-        <!-- Capture Image Button (First) -->
+        <!-- Buttons (Fixed Width Issue) -->
         <Button
             android:id="@+id/captureButton"
             android:layout_width="match_parent"
@@ -58,7 +72,6 @@
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"/>
 
-        <!-- Language Selection Button (Now Second) -->
         <Button
             android:id="@+id/languageButton"
             android:layout_width="match_parent"
@@ -69,7 +82,6 @@
             android:background="@drawable/ripple_button"
             android:layout_marginTop="16dp"/>
 
-        <!-- Translate Extracted Text Button (Last) -->
         <Button
             android:id="@+id/translateButton"
             android:layout_width="match_parent"

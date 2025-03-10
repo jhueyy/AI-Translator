@@ -97,6 +97,7 @@ class CameraActivity : AppCompatActivity() {
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success && photoUri != null) {
+                imageView.setImageURI(null)
                 imageView.setImageURI(photoUri)
 
                 val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -115,6 +116,7 @@ class CameraActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show()
             }
         }
+
 
     // Extract Text from Image using ML Kit
     private fun extractTextFromImage(bitmap: Bitmap) {
