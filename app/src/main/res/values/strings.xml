@@ -1,14 +1,48 @@
 <resources>
     <string name="app_name">AI Translator</string>
 
-    <string-array name="languages">
-        <item>English</item>
-        <item>Spanish</item>
-        <item>French</item>
-        <item>German</item>
-        <item>Chinese</item>
-        <item>Japanese</item>
-        <item>Italian</item>
-        <item>Russian</item>
-    </string-array>
+    <!-- Camera Screen -->
+    <string name="camera_title">Camera</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="delete_image">Delete Image</string>
+    <string name="no_text_found">No text found.</string>
+    <string name="no_image_found">No image found!</string>
+    <string name="failed_to_capture">Failed to capture image</string>
+    <string name="failed_to_process">Failed to process image</string>
+    <string name="failed_to_extract_text">OCR failed: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">Translate</string>
+    <string name="translating">Translating</string>
+    <string name="translation_placeholder">Translation will appear here...</string>
+    <string name="translation_failed">Translation failed.</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">Select Language</string>
+    <string name="search_hint">Search for a language...</string>
+    <string name="close">Close</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">Live Chat</string>
+    <string name="select_two_languages">Please select two languages first!</string>
+    <string name="speech_recognition_error">Speech recognition error!</string>
+    <string name="language_codes_missing">Language codes missing!</string>
+    <string name="unrecognized_language">Unrecognized language!</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">Enter text to translate...</string>
+    <string name="enter_text_to_translate">Please enter text</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="copied_text">Copied Text</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="speech_rate">Speech Rate</string>
+    <string name="speech_pitch">Speech Pitch</string>
+    <string name="save">Save</string>
+    <string name="reset">Reset</string>
+    <string name="reset_settings">Reset Settings</string>
+    <string name="reset_confirmation">Are you sure you want to reset all settings?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>

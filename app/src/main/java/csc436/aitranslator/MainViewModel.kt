@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: OpenAIRepository) : ViewModel() {
 
-    private val _translation = MutableStateFlow<String>("Translation will appear here...")
+    private val _translation = MutableStateFlow<String>(R.string.translation_placeholder.toString())
     val translation: StateFlow<String> = _translation
 
     private val _loading = MutableStateFlow<Boolean>(false)
@@ -20,7 +20,7 @@ class MainViewModel(private val repository: OpenAIRepository) : ViewModel() {
             try {
                 _translation.value = repository.translateText(text, languageCode)
             } catch (e: Exception) {
-                _translation.value = "Translation failed."
+                _translation.value = R.string.translation_failed.toString()
             } finally {
                 _loading.value = false
             }

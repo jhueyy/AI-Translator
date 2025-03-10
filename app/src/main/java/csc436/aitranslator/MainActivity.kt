@@ -33,13 +33,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraButton: ImageButton
     private lateinit var inputSpeakerButton: ImageButton
 
-
-
     private var selectedLanguageCode = "en" // Default to English
-
     private val viewModel: MainViewModel by viewModels { MainViewModelFactory(OpenAIRepository()) }
 
-    // New API: Activity Result Launcher for Language Selection
     private val languagePickerLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -48,8 +44,8 @@ class MainActivity : AppCompatActivity() {
                 val selectedCode = data?.getStringExtra("selectedCode")
 
                 if (selectedLanguage != null && selectedCode != null) {
-                    languageButton.text = selectedLanguage // Update button text
-                    selectedLanguageCode = selectedCode // Store selected language code
+                    languageButton.text = selectedLanguage
+                    selectedLanguageCode = selectedCode
                 }
             }
         }
@@ -59,19 +55,17 @@ class MainActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val extractedText = result.data?.getStringExtra("extracted_text")
                 if (!extractedText.isNullOrEmpty()) {
-                    inputText.setText(extractedText) // Show OCR result in input box
-                    translateButton.performClick() // Auto-translate the extracted text
+                    inputText.setText(extractedText)
+                    translateButton.performClick()
                 }
             }
         }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar?.hide() // Hide the AI Translator action bar
+        supportActionBar?.hide()
 
-        // Initialize UI elements
         inputText = findViewById(R.id.inputText)
         outputText = findViewById(R.id.outputText)
         translateButton = findViewById(R.id.translateButton)
@@ -85,39 +79,31 @@ class MainActivity : AppCompatActivity() {
         cameraButton = findViewById(R.id.cameraButton)
         textToSpeechHelper = TextToSpeechHelper(this)
 
-        // Open Language Selection Screen
         languageButton.setOnClickListener {
             val intent = Intent(this, LanguageSelectionActivity::class.java)
-            languagePickerLauncher.launch(intent) // Use new API
+            languagePickerLauncher.launch(intent)
         }
 
-        // Open Live Chat Screen
         chatButton.setOnClickListener {
-            val intent = Intent(this, LiveChatActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LiveChatActivity::class.java))
         }
 
-        // Open Settings Screen
         settingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
 
         cameraButton.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            cameraLauncher.launch(intent)
+            cameraLauncher.launch(Intent(this, CameraActivity::class.java))
         }
 
-        // Remove hint when typing
         inputText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 inputText.hint = ""
             } else if (inputText.text.isEmpty()) {
-                inputText.hint = "Enter text to translate..."
+                inputText.hint = getString(R.string.enter_text_hint)
             }
         }
 
-        // Hide keyboard when clicking outside input field
         findViewById<View>(R.id.rootLayout).setOnTouchListener { view, _ ->
             inputText.clearFocus()
             hideKeyboard()
@@ -125,54 +111,40 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        // Copy translated text
         copyButton.setOnClickListener {
             val textToCopy = outputText.text.toString().trim()
-            if (textToCopy.isNotEmpty() && textToCopy != "Translation will appear here...") {
+            if (textToCopy.isNotEmpty() && textToCopy != getString(R.string.translation_placeholder)) {
                 val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("Translated Text", textToCopy)
+                val clip = ClipData.newPlainText(getString(R.string.copied_text), textToCopy)
                 clipboard.setPrimaryClip(clip)
 
-                // Change button to check icon
                 copyButton.setImageResource(R.drawable.ic_check)
-
-                // Revert back to copy icon after 1.5 seconds
-                copyButton.postDelayed({
-                    copyButton.setImageResource(R.drawable.ic_copy)
-                }, 1500)
+                copyButton.postDelayed({ copyButton.setImageResource(R.drawable.ic_copy) }, 1500)
             }
         }
 
-        // Handle translation button
         translateButton.setOnClickListener {
             val text = inputText.text.toString().trim()
             if (text.isNotEmpty()) {
                 if (isNetworkAvailable()) {
-                    translateButton.isEnabled = false // Disable button while translating
+                    translateButton.isEnabled = false
                     startTranslatingAnimation()
                     viewModel.translateText(text, selectedLanguageCode)
                 } else {
-                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show()
+                    showToast(getString(R.string.no_internet))
                 }
             } else {
-                Toast.makeText(this, "Please enter text", Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.enter_text_to_translate))
             }
         }
 
-        // Handle speech output
         speakerButton.setOnClickListener {
             val text = outputText.text.toString().trim()
-            if (text.isNotEmpty() && text != "Translation will appear here...") {
+            if (text.isNotEmpty() && text != getString(R.string.translation_placeholder)) {
                 textToSpeechHelper.speak(text)
             }
         }
 
-
-//        inputMicButton.setOnClickListener {
-//            Toast.makeText(this, "Voice input not implemented yet!", Toast.LENGTH_SHORT).show()
-//        }
-
-        // 🔊 Play Input Text
         inputSpeakerButton.setOnClickListener {
             val text = inputText.text.toString().trim()
             if (text.isNotEmpty()) {
@@ -192,8 +164,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.translation.collectLatest { translatedText ->
                 outputText.text = translatedText
-                translateButton.text = "Translate" // Reset button text
-                translateButton.isEnabled = true   // Re-enable button
+                translateButton.text = getString(R.string.translate)
+                translateButton.isEnabled = true
             }
         }
 
@@ -202,7 +174,7 @@ class MainActivity : AppCompatActivity() {
                 if (isLoading) {
                     startTranslatingAnimation()
                 } else {
-                    translateButton.text = "Translate" // Reset when translation is done
+                    translateButton.text = getString(R.string.translate)
                     translateButton.isEnabled = true
                 }
             }
@@ -213,10 +185,10 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             var dotCount = 0
             while (viewModel.loading.value) {
-                val dots = ".".repeat(dotCount % 4) // Cycles: "", ".", "..", "..."
-                translateButton.text = "Translating$dots"
+                val dots = ".".repeat(dotCount % 4)
+                translateButton.text = getString(R.string.translating) + dots
                 dotCount++
-                kotlinx.coroutines.delay(500) // Change every 0.5 seconds
+                kotlinx.coroutines.delay(500)
             }
         }
     }
@@ -225,6 +197,10 @@ class MainActivity : AppCompatActivity() {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetworkInfo
         return activeNetwork != null && activeNetwork.isConnected
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

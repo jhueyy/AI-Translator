@@ -26,17 +26,18 @@ class OpenAIRepository {
                 Log.d("API_RESPONSE", "Response: ${response.choices}")
 
                 if (response.choices.isNotEmpty()) {
-                    response.choices.first().message["content"] ?: "Translation failed."
+                    response.choices.first().message["content"] ?:
+                    getString(R.string.translation_failed)
                 } else {
                     Log.e("API", "Empty response from server.")
-                    "No response from server."
+                    getString(R.string.translation_failed)
                 }
             } catch (e: HttpException) {
                 Log.e("API", "HTTP Error: ${e.code()} ${e.message()}", e)
-                "Translation error: ${e.message()}"
+                getString(R.string.translation_failed)
             } catch (e: Exception) {
                 Log.e("API", "Translation error: ${e.message}", e)
-                "Translation failed due to network issues."
+                getString(R.string.translation_failed)
             }
         }
     }
@@ -73,4 +74,7 @@ class OpenAIRepository {
         }
     }
 
+    private fun getString(resId: Int, vararg formatArgs: Any?): String {
+        return App.instance.getString(resId, *formatArgs)
+    }
 }

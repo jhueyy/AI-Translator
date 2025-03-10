@@ -34,6 +34,10 @@ class SettingsActivity : AppCompatActivity() {
         resetButton = findViewById(R.id.resetButton)
         closeButton = findViewById(R.id.closeButton)
 
+        // Set button text using string resources
+        saveButton.text = getString(R.string.save)
+        resetButton.text = getString(R.string.reset)
+
         // Load saved settings (Use default if not found)
         loadSettings()
 
@@ -47,7 +51,7 @@ class SettingsActivity : AppCompatActivity() {
         // Save button action
         saveButton.setOnClickListener {
             saveSettings()
-            finish() // closes settings activity - goes back to main
+            finish() // Closes settings activity - goes back to main
         }
 
         // Reset button action (Shows confirmation before reset)
@@ -94,10 +98,10 @@ class SettingsActivity : AppCompatActivity() {
     // Show a confirmation dialog before resetting
     private fun showResetConfirmationDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Reset Settings")
-            .setMessage("Are you sure you want to reset all settings?")
-            .setPositiveButton("Yes") { _, _ -> resetSettings() }
-            .setNegativeButton("Cancel", null)
+            .setTitle(getString(R.string.reset_settings))
+            .setMessage(getString(R.string.reset_confirmation))
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> resetSettings() }
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 

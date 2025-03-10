@@ -68,7 +68,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         microphoneAnimation.setOnClickListener {
             if (leftLanguageCode == null || rightLanguageCode == null) {
-                Toast.makeText(this, "Please select two languages first!", Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.select_two_languages))
             } else {
                 startVoiceRecognition()
             }
@@ -109,8 +109,8 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         leftLanguageCode = languagePreferences.getString("leftLanguageCode", null)
         rightLanguageCode = languagePreferences.getString("rightLanguageCode", null)
 
-        val leftLanguageText = languagePreferences.getString("leftLanguageText", "Select Language")
-        val rightLanguageText = languagePreferences.getString("rightLanguageText", "Select Language")
+        val leftLanguageText = languagePreferences.getString("leftLanguageText", getString(R.string.select_language))
+        val rightLanguageText = languagePreferences.getString("rightLanguageText", getString(R.string.select_language))
 
         leftLanguageButton.text = leftLanguageText
         rightLanguageButton.text = rightLanguageText
@@ -128,7 +128,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         speechRecognizer?.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
-                microphoneAnimation.playAnimation() // Start animation
+                microphoneAnimation.playAnimation()
             }
 
             override fun onBeginningOfSpeech() {}
@@ -140,16 +140,16 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Log.d("SpeechRecognition", "Detected: $detectedText")
                     processTranslation(detectedText)
                 }
-                microphoneAnimation.pauseAnimation() // Stop animation after result
+                microphoneAnimation.pauseAnimation()
             }
 
             override fun onError(error: Int) {
-                Toast.makeText(this@LiveChatActivity, "Speech recognition error!", Toast.LENGTH_SHORT).show()
-                microphoneAnimation.pauseAnimation() // Stop animation on error
+                showToast(getString(R.string.speech_recognition_error))
+                microphoneAnimation.pauseAnimation()
             }
 
             override fun onEndOfSpeech() {
-                microphoneAnimation.pauseAnimation() // Stop animation when done
+                microphoneAnimation.pauseAnimation()
             }
 
             override fun onRmsChanged(rmsdB: Float) {}
@@ -163,7 +163,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun processTranslation(detectedText: String) {
         if (leftLanguageCode == null || rightLanguageCode == null) {
-            Toast.makeText(this, "Language codes missing!", Toast.LENGTH_SHORT).show()
+            showToast(getString(R.string.language_codes_missing))
             return
         }
 
@@ -174,7 +174,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 leftLanguageCode -> rightLanguageCode
                 rightLanguageCode -> leftLanguageCode
                 else -> {
-                    Toast.makeText(this@LiveChatActivity, "Unrecognized language!", Toast.LENGTH_SHORT).show()
+                    showToast(getString(R.string.unrecognized_language))
                     return@launch
                 }
             }
@@ -192,14 +192,11 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         textToSpeech.language = locale
 
-        // Load speech rate and pitch settings
         val speechRate = speechPreferences.getFloat("speechRate", 1.0f)
         val speechPitch = speechPreferences.getFloat("speechPitch", 1.0f)
 
-        // Apply speech settings
         textToSpeech.setSpeechRate(speechRate)
         textToSpeech.setPitch(speechPitch)
-
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
 
@@ -214,11 +211,14 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (status == TextToSpeech.SUCCESS) {
             textToSpeech.language = Locale.US
 
-            // Apply stored speech settings on initialization
             val speechRate = speechPreferences.getFloat("speechRate", 1.0f)
             val speechPitch = speechPreferences.getFloat("speechPitch", 1.0f)
             textToSpeech.setSpeechRate(speechRate)
             textToSpeech.setPitch(speechPitch)
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
