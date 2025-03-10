@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -20,13 +21,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
+
 
 class CameraActivity : AppCompatActivity() {
 
@@ -36,8 +41,9 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var translateButton: Button
     private lateinit var languageButton: Button
     private lateinit var closeButton: ImageButton
+    private lateinit var deleteImageButton: ImageButton
 
-    private val recognizer = TextRecognition.getClient(TextRecognizerOptions.Builder().build()) // ✅ Multilingual OCR
+    private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
     private var photoUri: Uri? = null
     private var selectedLanguageCode: String = "en" // Default to English
 
@@ -52,6 +58,7 @@ class CameraActivity : AppCompatActivity() {
         translateButton = findViewById(R.id.translateButton)
         languageButton = findViewById(R.id.languageButton)
         closeButton = findViewById(R.id.closeButton)
+        deleteImageButton = findViewById(R.id.deleteImageButton)
 
         // Request Camera Permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -74,12 +81,29 @@ class CameraActivity : AppCompatActivity() {
         }
 
         // Translate Extracted Text
+        // Translate Extracted Text
         translateButton.setOnClickListener {
-            val extractedText = textView.text.toString().trim()
-            if (extractedText.isNotEmpty()) {
-                translateText(extractedText)
-            } else {
-                Toast.makeText(this, "No text to translate!", Toast.LENGTH_SHORT).show()
+            translateText() // Call without parameters
+        }
+
+        // Delete Image
+        deleteImageButton.setOnClickListener {
+            removeImage()
+        }
+
+    }
+
+    private fun startTranslatingAnimation() {
+        lifecycleScope.launch {
+            var dotCount = 0
+            while (true) { // Infinite loop until translation finishes
+                val dots = ".".repeat(dotCount % 4) // Cycles: "", ".", "..", "..."
+                translateButton.text = "Translating$dots"
+                dotCount++
+                delay(500) // Change every 0.5 seconds
+
+                // Stop when translation is complete
+                if (translateButton.text == "Translate") break
             }
         }
     }
@@ -99,6 +123,7 @@ class CameraActivity : AppCompatActivity() {
             if (success && photoUri != null) {
                 imageView.setImageURI(null)
                 imageView.setImageURI(photoUri)
+                deleteImageButton.visibility = View.VISIBLE
 
                 val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     val source = ImageDecoder.createSource(contentResolver, photoUri!!)
@@ -116,6 +141,12 @@ class CameraActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show()
             }
         }
+    private fun removeImage() {
+        imageView.setImageDrawable(null) // Clear image
+        deleteImageButton.visibility = View.GONE // Hide delete button
+        photoUri = null // Remove reference
+    }
+
 
 
     // Extract Text from Image using ML Kit
@@ -145,15 +176,33 @@ class CameraActivity : AppCompatActivity() {
             }
         }
 
-    // Translate Extracted Text using OpenAI API
-    private fun translateText(text: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val translatedText = OpenAIRepository().translateText(text, selectedLanguageCode)
 
-            runOnUiThread {
-                textView.text = translatedText
-                Toast.makeText(this@CameraActivity, "Translation Complete", Toast.LENGTH_SHORT).show()
+    // Translate Extracted Text using OpenAI API
+    private fun translateText() {
+        val extractedText = textView.text.toString().trim()
+
+        // Check if an image exists
+        if (photoUri == null) {
+            Log.e("Translation", "No image found!")
+            return
+        }
+
+        // Check if text was detected
+        if (extractedText.isEmpty() || extractedText == "No text found.") {
+            Log.e("Translation", "No text detected!")
+            return
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            startTranslatingAnimation() // Start animation
+
+            val translatedText = withContext(Dispatchers.IO) {
+                OpenAIRepository().translateText(extractedText, selectedLanguageCode)
             }
+
+            textView.text = translatedText
+            translateButton.text = "Translate" // Reset button text
         }
     }
+
 }

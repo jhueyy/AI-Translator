@@ -37,15 +37,34 @@
         android:gravity="center"
         android:layout_marginTop="80dp">  <!-- Pushed content down -->
 
-        <!-- Captured Image -->
-        <ImageView
-            android:id="@+id/imageView"
+        <!-- Container for Image and Delete Button -->
+        <FrameLayout
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="Captured Image"
-            android:layout_marginTop="20dp"/>
+            android:layout_gravity="center"
+            android:background="@android:color/darker_gray">
+
+            <!-- Captured Image -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Captured Image"/>
+
+            <!-- Delete Image Button (Bottom Right) -->
+            <ImageButton
+                android:id="@+id/deleteImageButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_delete"
+                android:contentDescription="Delete Image"
+                android:visibility="gone"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="8dp"/>
+        </FrameLayout>
+
 
         <!-- Extracted Text -->
         <TextView
@@ -86,7 +105,7 @@
             android:id="@+id/translateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Translate Text"
+            android:text="Translate"
             android:textSize="18sp"
             android:background="@drawable/ripple_button"
             android:textColor="@android:color/white"
