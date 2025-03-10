@@ -1,5 +1,6 @@
 package csc436.aitranslator
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -217,6 +218,11 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             textToSpeech.setPitch(speechPitch)
         }
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(App.applyLanguageToContext(newBase))
+    }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

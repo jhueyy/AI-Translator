@@ -1,6 +1,7 @@
 package csc436.aitranslator
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -59,6 +60,7 @@ class LanguageSelectionActivity : AppCompatActivity() {
         }
 
 
+
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
@@ -69,4 +71,9 @@ class LanguageSelectionActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(App.applyLanguageToContext(newBase))
+    }
+
 }

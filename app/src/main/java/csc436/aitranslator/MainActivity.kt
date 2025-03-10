@@ -17,6 +17,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieAnimationView
+import csc436.aitranslator.App.Companion.setAppLanguage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -64,19 +65,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    /* TEST SYSTEM LANGUAGE: call in main */
-
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        /* TEST SYSTEM LANGUAGE: change language code to test*/
+        setAppLanguage("fr")
+
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-
-        /* TEST SYSTEM LANGUAGE: change language code to test*/
-        
 
         inputText = findViewById(R.id.inputText)
         outputText = findViewById(R.id.outputText)
@@ -214,6 +213,11 @@ class MainActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(App.applyLanguageToContext(newBase))
+    }
+
 
     override fun onDestroy() {
         textToSpeechHelper.shutdown()

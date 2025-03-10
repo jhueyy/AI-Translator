@@ -1,5 +1,6 @@
 package csc436.aitranslator
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
@@ -138,4 +139,9 @@ class SettingsActivity : AppCompatActivity() {
         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
         override fun onStopTrackingTouch(seekBar: SeekBar?) {}
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(App.applyLanguageToContext(newBase))
+    }
+
 }

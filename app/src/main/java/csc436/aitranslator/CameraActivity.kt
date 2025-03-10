@@ -1,6 +1,7 @@
 package csc436.aitranslator
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -167,6 +168,11 @@ class CameraActivity : AppCompatActivity() {
             translateButton.text = getString(R.string.translate)
         }
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(App.applyLanguageToContext(newBase))
+    }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

@@ -15,29 +15,40 @@ class App : Application() {
         private const val PREFS_NAME = "AppSettings"
         private const val KEY_LANGUAGE = "selectedLanguage"
 
-        fun setAppLanguage(context: Context, languageCode: String) {
-            val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        fun setAppLanguage(languageCode: String) {
+            val sharedPreferences = instance.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             sharedPreferences.edit().putString(KEY_LANGUAGE, languageCode).apply()
 
             val locale = Locale(languageCode)
+            Locale.setDefault(locale)
+
+            val config = Configuration(instance.resources.configuration)
+            config.setLocale(locale)
+            config.setLocales(LocaleList(locale))
+
+            instance.resources.updateConfiguration(config, instance.resources.displayMetrics)
+        }
+
+        fun getSavedLanguage(): String {
+            val sharedPreferences = instance.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            return sharedPreferences.getString(KEY_LANGUAGE, Locale.getDefault().language) ?: "en"
+        }
+
+        fun applyLanguageToContext(context: Context): Context {
+            val locale = Locale(getSavedLanguage())
             Locale.setDefault(locale)
 
             val config = Configuration(context.resources.configuration)
             config.setLocale(locale)
             config.setLocales(LocaleList(locale))
 
-            context.createConfigurationContext(config)
-        }
-
-        fun getSavedLanguage(context: Context): String {
-            val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            return sharedPreferences.getString(KEY_LANGUAGE, Locale.getDefault().language) ?: "en"
+            return context.createConfigurationContext(config)
         }
     }
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        setAppLanguage(this, getSavedLanguage(this)) // Apply saved language on app launch
+        setAppLanguage(getSavedLanguage()) // Apply saved language at startup
     }
 }
