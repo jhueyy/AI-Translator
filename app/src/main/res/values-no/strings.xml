@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">AI Oversetter</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">Kamera</string>
+    <string name="capture_image">Ta bilde</string>
+    <string name="delete_image">Slett bilde</string>
+    <string name="no_text_found">Ingen tekst funnet.</string>
+    <string name="no_image_found">Ingen bilde funnet!</string>
+    <string name="failed_to_capture">Kunne ikke ta bilde</string>
+    <string name="failed_to_process">Kunne ikke behandle bilde</string>
+    <string name="failed_to_extract_text">OCR-feil: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">Oversett</string>
+    <string name="translating">Oversetter...</string>
+    <string name="translation_placeholder">Oversettelsen vises her...</string>
+    <string name="translation_failed">Oversettelse mislyktes.</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">Velg språk</string>
+    <string name="search_hint">Søk etter et språk...</string>
+    <string name="close">Lukk</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">Livechat</string>
+    <string name="select_two_languages">Vennligst velg to språk først!</string>
+    <string name="speech_recognition_error">Feil i talegjenkjenning!</string>
+    <string name="language_codes_missing">Manglende språkkoder!</string>
+    <string name="unrecognized_language">Ukjent språk!</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">Skriv inn tekst for oversettelse...</string>
+    <string name="enter_text_to_translate">Vennligst skriv inn tekst</string>
+    <string name="no_internet">Ingen internettforbindelse</string>
+    <string name="copied_text">Tekst kopiert</string>
+    <string name="play_translation">Spill av oversettelse</string>
+    <string name="play_input_text">Spill av inntastet tekst</string>
+    <string name="copy_translation">Kopier oversettelse</string>
+    <string name="chat_with_voice">Talebasert chat</string>
+    <string name="camera_translation">Kameraoversettelse</string>
+    <string name="settings">Innstillinger</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Innstillinger</string>
+    <string name="speech_rate">Talehastighet</string>
+    <string name="speech_pitch">Taletone</string>
+    <string name="save">Lagre</string>
+    <string name="reset">Tilbakestill</string>
+    <string name="reset_settings">Tilbakestill innstillinger</string>
+    <string name="reset_confirmation">Er du sikker på at du vil tilbakestille alle innstillinger?</string>
+    <string name="yes">Ja</string>
+    <string name="cancel">Avbryt</string>
+</resources>

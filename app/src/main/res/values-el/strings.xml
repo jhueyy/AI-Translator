@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">AI Μεταφραστής</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">Κάμερα</string>
+    <string name="capture_image">Λήψη εικόνας</string>
+    <string name="delete_image">Διαγραφή εικόνας</string>
+    <string name="no_text_found">Δεν βρέθηκε κείμενο.</string>
+    <string name="no_image_found">Δεν βρέθηκε εικόνα!</string>
+    <string name="failed_to_capture">Αποτυχία λήψης εικόνας</string>
+    <string name="failed_to_process">Αποτυχία επεξεργασίας εικόνας</string>
+    <string name="failed_to_extract_text">Αποτυχία OCR: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">Μετάφραση</string>
+    <string name="translating">Μετάφραση...</string>
+    <string name="translation_placeholder">Η μετάφραση θα εμφανιστεί εδώ...</string>
+    <string name="translation_failed">Αποτυχία μετάφρασης.</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">Επιλογή γλώσσας</string>
+    <string name="search_hint">Αναζήτηση γλώσσας...</string>
+    <string name="close">Κλείσιμο</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">Ζωντανή συνομιλία</string>
+    <string name="select_two_languages">Επιλέξτε δύο γλώσσες πρώτα!</string>
+    <string name="speech_recognition_error">Σφάλμα αναγνώρισης ομιλίας!</string>
+    <string name="language_codes_missing">Λείπουν κωδικοί γλώσσας!</string>
+    <string name="unrecognized_language">Μη αναγνωρισμένη γλώσσα!</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">Εισαγάγετε κείμενο για μετάφραση...</string>
+    <string name="enter_text_to_translate">Παρακαλώ εισαγάγετε κείμενο</string>
+    <string name="no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="copied_text">Το κείμενο αντιγράφηκε</string>
+    <string name="play_translation">Αναπαραγωγή μετάφρασης</string>
+    <string name="play_input_text">Αναπαραγωγή εισαγόμενου κειμένου</string>
+    <string name="copy_translation">Αντιγραφή μετάφρασης</string>
+    <string name="chat_with_voice">Συνομιλία με φωνή</string>
+    <string name="camera_translation">Μετάφραση κάμερας</string>
+    <string name="settings">Ρυθμίσεις</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="speech_rate">Ταχύτητα ομιλίας</string>
+    <string name="speech_pitch">Τονικότητα ομιλίας</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="reset">Επαναφορά</string>
+    <string name="reset_settings">Επαναφορά ρυθμίσεων</string>
+    <string name="reset_confirmation">Είστε σίγουροι ότι θέλετε να επαναφέρετε όλες τις ρυθμίσεις;</string>
+    <string name="yes">Ναι</string>
+    <string name="cancel">Ακύρωση</string>
+</resources>

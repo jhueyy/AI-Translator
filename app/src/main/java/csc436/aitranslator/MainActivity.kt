@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /* TEST SYSTEM LANGUAGE: change language code to test*/
-        setAppLanguage("fr")
+        setAppLanguage("en")
 
 
         super.onCreate(savedInstanceState)

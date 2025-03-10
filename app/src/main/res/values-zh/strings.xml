@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">AI 翻译器</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">相机</string>
+    <string name="capture_image">拍摄图片</string>
+    <string name="delete_image">删除图片</string>
+    <string name="no_text_found">未找到文本。</string>
+    <string name="no_image_found">未找到图片！</string>
+    <string name="failed_to_capture">拍摄图片失败</string>
+    <string name="failed_to_process">处理图片失败</string>
+    <string name="failed_to_extract_text">OCR 失败: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">翻译</string>
+    <string name="translating">正在翻译</string>
+    <string name="translation_placeholder">翻译结果将在此显示...</string>
+    <string name="translation_failed">翻译失败。</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">选择语言</string>
+    <string name="search_hint">搜索语言...</string>
+    <string name="close">关闭</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">实时聊天</string>
+    <string name="select_two_languages">请先选择两种语言！</string>
+    <string name="speech_recognition_error">语音识别错误！</string>
+    <string name="language_codes_missing">缺少语言代码！</string>
+    <string name="unrecognized_language">无法识别的语言！</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">输入文本进行翻译...</string>
+    <string name="enter_text_to_translate">请输入文本</string>
+    <string name="no_internet">无网络连接</string>
+    <string name="copied_text">已复制文本</string>
+    <string name="play_translation">播放翻译</string>
+    <string name="play_input_text">播放输入文本</string>
+    <string name="copy_translation">复制翻译</string>
+    <string name="chat_with_voice">语音聊天</string>
+    <string name="camera_translation">相机翻译</string>
+    <string name="settings">设置</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">设置</string>
+    <string name="speech_rate">语速</string>
+    <string name="speech_pitch">语调</string>
+    <string name="save">保存</string>
+    <string name="reset">重置</string>
+    <string name="reset_settings">重置设置</string>
+    <string name="reset_confirmation">您确定要重置所有设置吗？</string>
+    <string name="yes">是</string>
+    <string name="cancel">取消</string>
+</resources>

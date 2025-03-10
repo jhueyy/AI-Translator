@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">एआई अनुवादक</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">कैमरा</string>
+    <string name="capture_image">चित्र लें</string>
+    <string name="delete_image">चित्र हटाएं</string>
+    <string name="no_text_found">कोई टेक्स्ट नहीं मिला।</string>
+    <string name="no_image_found">कोई चित्र नहीं मिला!</string>
+    <string name="failed_to_capture">चित्र लेने में विफल</string>
+    <string name="failed_to_process">चित्र संसाधित करने में विफल</string>
+    <string name="failed_to_extract_text">OCR विफल: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">अनुवाद</string>
+    <string name="translating">अनुवाद कर रहा है...</string>
+    <string name="translation_placeholder">अनुवाद यहाँ दिखाई देगा...</string>
+    <string name="translation_failed">अनुवाद विफल।</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">भाषा चुनें</string>
+    <string name="search_hint">भाषा खोजें...</string>
+    <string name="close">बंद करें</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">लाइव चैट</string>
+    <string name="select_two_languages">कृपया पहले दो भाषाएँ चुनें!</string>
+    <string name="speech_recognition_error">स्पीच रिकग्निशन त्रुटि!</string>
+    <string name="language_codes_missing">भाषा कोड गायब हैं!</string>
+    <string name="unrecognized_language">अज्ञात भाषा!</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">अनुवाद के लिए टेक्स्ट दर्ज करें...</string>
+    <string name="enter_text_to_translate">कृपया टेक्स्ट दर्ज करें</string>
+    <string name="no_internet">इंटरनेट कनेक्शन नहीं</string>
+    <string name="copied_text">टेक्स्ट कॉपी किया गया</string>
+    <string name="play_translation">अनुवाद चलाएँ</string>
+    <string name="play_input_text">इनपुट टेक्स्ट चलाएँ</string>
+    <string name="copy_translation">अनुवाद कॉपी करें</string>
+    <string name="chat_with_voice">वॉइस चैट</string>
+    <string name="camera_translation">कैमरा अनुवाद</string>
+    <string name="settings">सेटिंग्स</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="speech_rate">स्पीच दर</string>
+    <string name="speech_pitch">स्पीच पिच</string>
+    <string name="save">सहेजें</string>
+    <string name="reset">रीसेट करें</string>
+    <string name="reset_settings">सेटिंग्स रीसेट करें</string>
+    <string name="reset_confirmation">क्या आप वाकई सभी सेटिंग्स रीसेट करना चाहते हैं?</string>
+    <string name="yes">हाँ</string>
+    <string name="cancel">रद्द करें</string>
+</resources>

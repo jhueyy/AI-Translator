@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">مترجم AI</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">الكاميرا</string>
+    <string name="capture_image">التقاط صورة</string>
+    <string name="delete_image">حذف الصورة</string>
+    <string name="no_text_found">لم يتم العثور على نص.</string>
+    <string name="no_image_found">لم يتم العثور على صورة!</string>
+    <string name="failed_to_capture">فشل التقاط الصورة</string>
+    <string name="failed_to_process">فشل معالجة الصورة</string>
+    <string name="failed_to_extract_text">فشل OCR: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">ترجمة</string>
+    <string name="translating">جارٍ الترجمة...</string>
+    <string name="translation_placeholder">سيظهر الترجمة هنا...</string>
+    <string name="translation_failed">فشلت الترجمة.</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">اختر اللغة</string>
+    <string name="search_hint">ابحث عن لغة...</string>
+    <string name="close">إغلاق</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">الدردشة المباشرة</string>
+    <string name="select_two_languages">يرجى اختيار لغتين أولاً!</string>
+    <string name="speech_recognition_error">خطأ في التعرف على الصوت!</string>
+    <string name="language_codes_missing">الرموز اللغوية مفقودة!</string>
+    <string name="unrecognized_language">لغة غير معروفة!</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">أدخل النص للترجمة...</string>
+    <string name="enter_text_to_translate">يرجى إدخال النص</string>
+    <string name="no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="copied_text">تم نسخ النص</string>
+    <string name="play_translation">تشغيل الترجمة</string>
+    <string name="play_input_text">تشغيل النص المدخل</string>
+    <string name="copy_translation">نسخ الترجمة</string>
+    <string name="chat_with_voice">الدردشة الصوتية</string>
+    <string name="camera_translation">ترجمة الكاميرا</string>
+    <string name="settings">الإعدادات</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="speech_rate">سرعة الكلام</string>
+    <string name="speech_pitch">نبرة الصوت</string>
+    <string name="save">حفظ</string>
+    <string name="reset">إعادة ضبط</string>
+    <string name="reset_settings">إعادة ضبط الإعدادات</string>
+    <string name="reset_confirmation">هل أنت متأكد أنك تريد إعادة ضبط جميع الإعدادات؟</string>
+    <string name="yes">نعم</string>
+    <string name="cancel">إلغاء</string>
+</resources>

@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">AI Переводчик</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">Камера</string>
+    <string name="capture_image">Сделать снимок</string>
+    <string name="delete_image">Удалить изображение</string>
+    <string name="no_text_found">Текст не найден.</string>
+    <string name="no_image_found">Изображение не найдено!</string>
+    <string name="failed_to_capture">Не удалось сделать снимок</string>
+    <string name="failed_to_process">Ошибка обработки изображения</string>
+    <string name="failed_to_extract_text">Ошибка OCR: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">Перевести</string>
+    <string name="translating">Перевод...</string>
+    <string name="translation_placeholder">Здесь появится перевод...</string>
+    <string name="translation_failed">Ошибка перевода.</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">Выбрать язык</string>
+    <string name="search_hint">Поиск языка...</string>
+    <string name="close">Закрыть</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">Живой чат</string>
+    <string name="select_two_languages">Сначала выберите два языка!</string>
+    <string name="speech_recognition_error">Ошибка распознавания речи!</string>
+    <string name="language_codes_missing">Отсутствуют коды языков!</string>
+    <string name="unrecognized_language">Неизвестный язык!</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">Введите текст для перевода...</string>
+    <string name="enter_text_to_translate">Введите текст</string>
+    <string name="no_internet">Нет подключения к интернету</string>
+    <string name="copied_text">Текст скопирован</string>
+    <string name="play_translation">Воспроизвести перевод</string>
+    <string name="play_input_text">Воспроизвести введённый текст</string>
+    <string name="copy_translation">Скопировать перевод</string>
+    <string name="chat_with_voice">Голосовой чат</string>
+    <string name="camera_translation">Перевод с камеры</string>
+    <string name="settings">Настройки</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Настройки</string>
+    <string name="speech_rate">Скорость речи</string>
+    <string name="speech_pitch">Тон голоса</string>
+    <string name="save">Сохранить</string>
+    <string name="reset">Сброс</string>
+    <string name="reset_settings">Сброс настроек</string>
+    <string name="reset_confirmation">Вы уверены, что хотите сбросить все настройки?</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
+</resources>

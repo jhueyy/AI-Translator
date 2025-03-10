@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">AI翻訳</string>
+
+    <!-- Camera Screen -->
+    <string name="camera_title">カメラ</string>
+    <string name="capture_image">画像を撮影</string>
+    <string name="delete_image">画像を削除</string>
+    <string name="no_text_found">テキストが見つかりません。</string>
+    <string name="no_image_found">画像が見つかりません！</string>
+    <string name="failed_to_capture">画像の撮影に失敗しました</string>
+    <string name="failed_to_process">画像の処理に失敗しました</string>
+    <string name="failed_to_extract_text">OCRエラー: %1$s</string>
+
+    <!-- Translation -->
+    <string name="translate">翻訳</string>
+    <string name="translating">翻訳中</string>
+    <string name="translation_placeholder">翻訳がここに表示されます...</string>
+    <string name="translation_failed">翻訳に失敗しました。</string>
+
+    <!-- Language Selection Screen -->
+    <string name="select_language">言語を選択</string>
+    <string name="search_hint">言語を検索...</string>
+    <string name="close">閉じる</string>
+
+    <!-- Live Chat Screen -->
+    <string name="live_chat_title">ライブチャット</string>
+    <string name="select_two_languages">最初に2つの言語を選択してください！</string>
+    <string name="speech_recognition_error">音声認識エラー！</string>
+    <string name="language_codes_missing">言語コードが見つかりません！</string>
+    <string name="unrecognized_language">認識できない言語です！</string>
+
+    <!-- Main Activity -->
+    <string name="enter_text_hint">翻訳するテキストを入力...</string>
+    <string name="enter_text_to_translate">テキストを入力してください</string>
+    <string name="no_internet">インターネット接続なし</string>
+    <string name="copied_text">テキストをコピーしました</string>
+    <string name="play_translation">翻訳を再生</string>
+    <string name="play_input_text">入力テキストを再生</string>
+    <string name="copy_translation">翻訳をコピー</string>
+    <string name="chat_with_voice">音声でチャット</string>
+    <string name="camera_translation">カメラ翻訳</string>
+    <string name="settings">設定</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">設定</string>
+    <string name="speech_rate">音声速度</string>
+    <string name="speech_pitch">音声ピッチ</string>
+    <string name="save">保存</string>
+    <string name="reset">リセット</string>
+    <string name="reset_settings">設定をリセット</string>
+    <string name="reset_confirmation">すべての設定をリセットしますか？</string>
+    <string name="yes">はい</string>
+    <string name="cancel">キャンセル</string>
+</resources>
