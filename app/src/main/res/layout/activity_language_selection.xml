@@ -26,7 +26,7 @@
             android:layout_height="48dp"
             android:background="@drawable/ripple_circle"
             android:src="@drawable/ic_close"
-            android:contentDescription="Close"
+            android:contentDescription="@string/close"
             android:padding="8dp"/>
 
         <!-- Space between Close Button and Search Bar -->
@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:hint="Search languages..."
+            android:hint="@string/search_hint"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray"
             android:background="@drawable/gradient_output"
@@ -58,6 +58,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

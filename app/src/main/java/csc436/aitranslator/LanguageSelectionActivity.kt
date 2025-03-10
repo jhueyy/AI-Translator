@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import java.util.Locale
 
 class LanguageSelectionActivity : AppCompatActivity() {
 
@@ -16,26 +17,12 @@ class LanguageSelectionActivity : AppCompatActivity() {
     private lateinit var languageListView: ListView
     private lateinit var closeButton: ImageButton
 
-    private val languages = listOf( // Expanded List of Languages
-        "Afrikaans", "Albanian", "Arabic", "Armenian", "Bengali", "Bulgarian", "Burmese", "Catalan",
-        "Chinese", "Croatian", "Czech", "Danish", "Dutch", "English", "Estonian", "Filipino", "Finnish",
-        "French", "Georgian", "German", "Greek", "Gujarati", "Hebrew", "Hindi", "Hungarian",
-        "Icelandic", "Indonesian", "Italian", "Japanese", "Kannada", "Kazakh", "Khmer", "Korean",
-        "Lao", "Latvian", "Lithuanian", "Malay", "Malayalam", "Marathi", "Mongolian", "Nepali",
-        "Norwegian", "Pashto", "Persian", "Polish", "Portuguese", "Punjabi", "Romanian", "Russian",
-        "Serbian", "Sinhala", "Slovak", "Slovenian", "Spanish", "Swahili", "Swedish", "Tamil",
-        "Telugu", "Thai", "Turkish", "Ukrainian", "Urdu", "Uzbek", "Vietnamese", "Welsh"
-    )
-
-    private val languageCodes = listOf( // Matching Language Codes (ISO 639-1)
-        "af", "sq", "ar", "hy", "bn", "bg", "my", "ca",
-        "zh", "hr", "cs", "da", "nl", "en", "et", "tl", "fi",
-        "fr", "ka", "de", "el", "gu", "he", "hi", "hu",
-        "is", "id", "it", "ja", "kn", "kk", "km", "ko",
-        "lo", "lv", "lt", "ms", "ml", "mr", "mn", "ne",
-        "no", "ps", "fa", "pl", "pt", "pa", "ro", "ru",
-        "sr", "si", "sk", "sl", "es", "sw", "sv", "ta",
-        "te", "th", "tr", "uk", "ur", "uz", "vi", "cy"
+    private val languageCodes = listOf(
+        "af", "sq", "ar", "hy", "bn", "bg", "my", "ca", "zh", "hr", "cs", "da", "nl",
+        "en", "et", "tl", "fi", "fr", "ka", "de", "el", "gu", "he", "hi", "hu", "is",
+        "id", "it", "ja", "kn", "kk", "km", "ko", "lo", "lv", "lt", "ms", "ml", "mr",
+        "mn", "ne", "no", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sr", "si", "sk",
+        "sl", "es", "sw", "sv", "ta", "te", "th", "tr", "uk", "ur", "uz", "vi", "cy"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,29 +34,31 @@ class LanguageSelectionActivity : AppCompatActivity() {
         languageListView = findViewById(R.id.languageListView)
         closeButton = findViewById(R.id.closeButton)
 
-        val adapter = LanguageAdapter(this, languages)
+        val systemLocale = Locale.getDefault() // Get the system's language
+        val sortedPairs = languageCodes.map { code ->
+            code to Locale(code).getDisplayLanguage(systemLocale).replaceFirstChar { it.uppercaseChar() }
+        }.sortedBy { it.second }
+
+        val sortedLanguageCodes = sortedPairs.map { it.first }
+        val sortedLanguages = sortedPairs.map { it.second }
+
+        val adapter = LanguageAdapter(this, sortedLanguages)
         languageListView.adapter = adapter
 
-        // Close button action
-        closeButton.setOnClickListener {
-            finish()
-        }
+        closeButton.setOnClickListener { finish() }
 
         languageListView.setOnItemClickListener { _, _, position, _ ->
             val selectedLanguage = adapter.getItem(position)
-            val selectedCode = languageCodes[languages.indexOf(selectedLanguage)]
+            val selectedCode = sortedLanguageCodes[position] // ✅ Now it's properly aligned
 
-            if (selectedLanguage != null) {
-                val resultIntent = Intent()
-                resultIntent.putExtra("selectedLanguage", selectedLanguage)
-                resultIntent.putExtra("selectedCode", selectedCode)
-                setResult(Activity.RESULT_OK, resultIntent)
-                finish()
-            }
+            val resultIntent = Intent()
+            resultIntent.putExtra("selectedLanguage", selectedLanguage)
+            resultIntent.putExtra("selectedCode", selectedCode)
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
         }
 
 
-        // Search functionality
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 

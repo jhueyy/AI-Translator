@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieAnimationView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraButton: ImageButton
     private lateinit var inputSpeakerButton: ImageButton
 
-    private var selectedLanguageCode = "en" // Default to English
+    private var selectedLanguageCode = Locale.getDefault().language // Uses system language
     private val viewModel: MainViewModel by viewModels { MainViewModelFactory(OpenAIRepository()) }
 
     private val languagePickerLauncher =

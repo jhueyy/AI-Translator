@@ -34,6 +34,12 @@
     <string name="enter_text_to_translate">Please enter text</string>
     <string name="no_internet">No internet connection</string>
     <string name="copied_text">Copied Text</string>
+    <string name="play_translation">Play Translation</string>
+    <string name="play_input_text">Play Input Text</string>
+    <string name="copy_translation">Copy Translation</string>
+    <string name="chat_with_voice">Chat with Voice</string>
+    <string name="camera_translation">Camera Translation</string>
+    <string name="settings">Settings</string>
 
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>

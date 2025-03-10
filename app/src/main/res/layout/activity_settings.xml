@@ -13,7 +13,7 @@
         android:layout_height="40dp"
         android:background="@drawable/ripple_circle"
         android:src="@drawable/ic_close"
-        android:contentDescription="Close Settings"
+        android:contentDescription="@string/close"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"
@@ -24,7 +24,7 @@
         android:id="@+id/settingsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="@string/settings_title"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
@@ -33,12 +33,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"/>
 
-
     <!-- Speech Rate Label -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Speech Rate"
+        android:text="@string/speech_rate"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/settingsTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +58,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Speech Pitch"
+        android:text="@string/speech_pitch"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/speechRateSeekBar"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +80,7 @@
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SAVE SETTINGS"
+        android:text="@string/save"
         android:background="@drawable/ripple_button"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/speechPitchSeekBar"
@@ -93,7 +92,7 @@
         android:id="@+id/resetButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="RESET SETTINGS"
+        android:text="@string/reset"
         android:background="@drawable/ripple_button"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/saveButton"

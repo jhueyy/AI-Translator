@@ -10,7 +10,7 @@
         android:layout_height="48dp"
         android:background="@drawable/ripple_circle"
         android:src="@drawable/ic_close"
-        android:contentDescription="Close"
+        android:contentDescription="@string/close"
         android:padding="8dp"
         android:layout_gravity="top|start"
         android:layout_marginTop="24dp"
@@ -21,7 +21,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Camera"
+        android:text="@string/camera_title"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:contentDescription="Captured Image"/>
+                android:contentDescription="@string/no_image_found"/>
 
             <!-- Delete Image Button (Bottom Right) -->
             <ImageButton
@@ -59,19 +59,18 @@
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_delete"
-                android:contentDescription="Delete Image"
+                android:contentDescription="@string/delete_image"
                 android:visibility="gone"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="8dp"/>
         </FrameLayout>
-
 
         <!-- Extracted Text -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Extracted text will appear here"
+            android:text="@string/no_text_found"
             android:textSize="16sp"
             android:textColor="@android:color/white"
             android:padding="10dp"
@@ -80,12 +79,12 @@
             android:minHeight="80dp"
             android:layout_marginTop="16dp"/>
 
-        <!-- Buttons (Fixed Width Issue) -->
+        <!-- Buttons -->
         <Button
             android:id="@+id/captureButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Capture Image"
+            android:text="@string/capture_image"
             android:textSize="18sp"
             android:background="@drawable/ripple_button"
             android:textColor="@android:color/white"
@@ -95,7 +94,7 @@
             android:id="@+id/languageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Language"
+            android:text="@string/select_language"
             android:textSize="16sp"
             android:textColor="@android:color/white"
             android:background="@drawable/ripple_button"
@@ -105,7 +104,7 @@
             android:id="@+id/translateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Translate"
+            android:text="@string/translate"
             android:textSize="18sp"
             android:background="@drawable/ripple_button"
             android:textColor="@android:color/white"

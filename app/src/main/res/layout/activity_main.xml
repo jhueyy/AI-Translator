@@ -11,6 +11,7 @@
     android:focusableInTouchMode="true"
     tools:context=".MainActivity"
     android:padding="16dp">
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingAnimation"
         android:layout_width="100dp"
@@ -28,7 +29,7 @@
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AI Translator"
+        android:text="@string/app_name"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
@@ -36,8 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"/>
-
-
 
     <!-- Input Text Box with Buttons -->
     <FrameLayout
@@ -54,7 +53,7 @@
             android:id="@+id/inputText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Enter text to translate..."
+            android:hint="@string/enter_text_hint"
             android:textColorHint="@color/text_white"
             android:textColor="@android:color/white"
             android:textSize="18sp"
@@ -64,7 +63,7 @@
             android:maxLines="6"
             android:scrollbars="vertical"/>
 
-        <!-- Button Row (Mic & Speaker) -->
+        <!-- Button Row (Speaker) -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,16 +71,6 @@
             android:layout_margin="8dp"
             android:orientation="horizontal"
             android:gravity="end">
-
-            <!-- Microphone Button -->
-<!--            <ImageButton-->
-<!--                android:id="@+id/inputMicButton"-->
-<!--                android:layout_width="48dp"-->
-<!--                android:layout_height="48dp"-->
-<!--                android:background="@drawable/ripple_circle"-->
-<!--                android:src="@drawable/ic_microphone"-->
-<!--                android:padding="8dp"-->
-<!--                android:contentDescription="Voice Input"/>-->
 
             <Space
                 android:layout_width="8dp"
@@ -95,20 +84,16 @@
                 android:background="@drawable/ripple_circle"
                 android:src="@drawable/ic_speaker"
                 android:padding="8dp"
-                android:contentDescription="Play Input Text"/>
+                android:contentDescription="@string/play_input_text"/>
         </LinearLayout>
     </FrameLayout>
-
-
-
-
 
     <!-- Translate Button -->
     <Button
         android:id="@+id/translateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Translate"
+        android:text="@string/translate"
         android:textSize="18sp"
         android:textColor="@android:color/white"
         android:background="@drawable/ripple_button"
@@ -117,12 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
-
-
     <!-- Output Text Box (Translated Text) -->
-
     <FrameLayout
         android:id="@+id/outputContainer"
         android:layout_width="0dp"
@@ -137,7 +117,7 @@
             android:id="@+id/outputText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Translation will appear here..."
+            android:text="@string/translation_placeholder"
             android:textSize="18sp"
             android:textColor="@android:color/white"
             android:background="@drawable/gradient_output"
@@ -163,12 +143,11 @@
                 android:background="@drawable/ripple_circle"
                 android:src="@drawable/ic_copy"
                 android:padding="8dp"
-                android:contentDescription="Copy Translation"/>
+                android:contentDescription="@string/copy_translation"/>
 
             <Space
                 android:layout_width="8dp"
                 android:layout_height="1dp"/>
-
 
             <!-- Speaker Button -->
             <ImageButton
@@ -178,14 +157,11 @@
                 android:background="@drawable/ripple_circle"
                 android:src="@drawable/ic_speaker"
                 android:padding="8dp"
-                android:contentDescription="Play Translation"/>
+                android:contentDescription="@string/play_translation"/>
         </LinearLayout>
-
     </FrameLayout>
 
-
-
-
+    <!-- Language Selection Button -->
     <!-- Speaker & Voice Buttons -->
     <LinearLayout
         android:layout_width="wrap_content"
@@ -197,25 +173,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/outputContainer">
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/micButton"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:background="@drawable/ripple_circle"-->
-<!--            android:contentDescription="Voice Input"-->
-<!--            android:padding="12dp"-->
-<!--            android:src="@drawable/ic_microphone" />-->
-
         <Space
             android:layout_width="16dp"
             android:layout_height="1dp" />
 
+        <!-- Language Selection Button -->
         <Button
             android:id="@+id/targetLanguageButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/ripple_button"
-            android:text="Select Language"
+            android:text="@string/select_language"
             android:textSize="16sp"
             android:textColor="@android:color/white"
             android:padding="8dp"
@@ -223,21 +191,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
-
         <Space
             android:layout_width="16dp"
             android:layout_height="1dp" />
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/speakerButton"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:background="@drawable/ripple_circle"-->
-<!--            android:contentDescription="Play Translation"-->
-<!--            android:padding="12dp"-->
-<!--            android:src="@drawable/ic_speaker" />-->
     </LinearLayout>
 
 
@@ -260,13 +217,13 @@
             android:background="@drawable/ripple_circle"
             android:src="@drawable/ic_microphone"
             android:padding="12dp"
-            android:contentDescription="Chat with Voice"/>
+            android:contentDescription="@string/chat_with_voice"/>
 
         <Space
             android:layout_width="40dp"
             android:layout_height="1dp"/>
 
-        <!-- Camera Button (Bigger & Circular) -->
+        <!-- Camera Button -->
         <ImageButton
             android:id="@+id/cameraButton"
             android:layout_width="80dp"
@@ -274,7 +231,7 @@
             android:background="@drawable/ripple_circle"
             android:src="@drawable/ic_camera"
             android:padding="16dp"
-            android:contentDescription="Camera Translation"/>
+            android:contentDescription="@string/camera_translation"/>
 
         <Space
             android:layout_width="40dp"
@@ -288,11 +245,7 @@
             android:background="@drawable/ripple_circle"
             android:src="@drawable/ic_settings"
             android:padding="12dp"
-            android:contentDescription="Settings"/>
+            android:contentDescription="@string/settings"/>
     </LinearLayout>
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
