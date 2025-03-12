@@ -1,9 +1,11 @@
 package csc436.aitranslator
 
 import android.util.Log
+import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.net.UnknownHostException
 
 class OpenAIRepository {
     suspend fun translateText(text: String, languageCode: String): String {
@@ -76,12 +78,16 @@ class OpenAIRepository {
                 }
 
 
+            } catch (e: UnknownHostException) {
+                Log.e("API", "No internet connection.", e)
+                null
             } catch (e: Exception) {
                 Log.e("API", "Language detection error: ${e.message}", e)
                 null
             }
         }
     }
+
 
     private fun getString(resId: Int, vararg formatArgs: Any?): String {
         return App.instance.getString(resId, *formatArgs)

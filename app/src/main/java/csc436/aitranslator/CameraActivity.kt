@@ -149,11 +149,13 @@ class CameraActivity : AppCompatActivity() {
 
         if (photoUri == null) {
             Log.e("Translation", getString(R.string.no_image_found))
+            showToast(getString(R.string.no_image_found))
             return
         }
 
         if (extractedText.isEmpty() || extractedText == getString(R.string.no_text_found)) {
             Log.e("Translation", getString(R.string.no_text_found))
+            showToast(getString(R.string.no_text_found))
             return
         }
 
@@ -168,6 +170,8 @@ class CameraActivity : AppCompatActivity() {
             translateButton.text = getString(R.string.translate)
         }
     }
+
+
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(App.applyLanguageToContext(newBase))

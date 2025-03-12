@@ -19,6 +19,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 
 class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -36,6 +38,13 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var speechPreferences: SharedPreferences
 
     private val openAIRepository = OpenAIRepository()
+
+    fun Context.isOnline(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -198,6 +207,11 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
 
     private fun processTranslation(detectedText: String) {
+        if (!this@LiveChatActivity.isOnline()) {
+            showToast("No internet connection. Please check your network.")
+            return
+        }
+
         if (leftLanguageCode == null || rightLanguageCode == null) {
             showToast(getString(R.string.language_codes_missing))
             return
