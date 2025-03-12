@@ -50,7 +50,9 @@ class LanguageSelectionActivity : AppCompatActivity() {
 
         languageListView.setOnItemClickListener { _, _, position, _ ->
             val selectedLanguage = adapter.getItem(position)
-            val selectedCode = sortedLanguageCodes[position] // ✅ Now it's properly aligned
+
+            // Find the correct code based on the displayed (filtered) list
+            val selectedCode = sortedPairs.find { it.second == selectedLanguage }?.first ?: return@setOnItemClickListener
 
             val resultIntent = Intent()
             resultIntent.putExtra("selectedLanguage", selectedLanguage)
@@ -58,6 +60,7 @@ class LanguageSelectionActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }
+
 
 
 

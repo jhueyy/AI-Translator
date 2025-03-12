@@ -26,12 +26,15 @@ class OpenAIRepository {
                 Log.d("API_RESPONSE", "Response: ${response.choices}")
 
                 if (response.choices.isNotEmpty()) {
-                    response.choices.first().message["content"] ?:
-                    getString(R.string.translation_failed)
+                    when (val content = response.choices.first().message.content) {
+                        is String -> content
+                        is List<*> -> content.joinToString(" ")  // Convert array to a single string
+                        else -> getString(R.string.translation_failed)
+                    }
                 } else {
-                    Log.e("API", "Empty response from server.")
                     getString(R.string.translation_failed)
                 }
+
             } catch (e: HttpException) {
                 Log.e("API", "HTTP Error: ${e.code()} ${e.message()}", e)
                 getString(R.string.translation_failed)
@@ -62,11 +65,17 @@ class OpenAIRepository {
                 Log.d("API_RESPONSE", "Detected Language: ${response.choices}")
 
                 if (response.choices.isNotEmpty()) {
-                    response.choices.first().message["content"]
+                    return@withContext when (val content = response.choices.first().message.content) {
+                        is String -> content
+                        is List<*> -> content.firstOrNull()?.toString()
+                        else -> null
+                    }
                 } else {
                     Log.e("API", "Empty response from server.")
-                    null
+                    return@withContext null
                 }
+
+
             } catch (e: Exception) {
                 Log.e("API", "Language detection error: ${e.message}", e)
                 null

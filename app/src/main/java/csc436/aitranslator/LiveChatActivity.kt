@@ -80,31 +80,45 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data = result.data
-                leftLanguageCode = data?.getStringExtra("selectedCode")
+                val selectedCode = data?.getStringExtra("selectedCode")
                 val selectedLanguage = data?.getStringExtra("selectedLanguage")
-                leftLanguageButton.text = selectedLanguage
 
-                saveLanguageSelection("leftLanguageCode", leftLanguageCode)
-                saveLanguageSelection("leftLanguageText", selectedLanguage)
+                saveLanguageSelection("leftLanguageCode", "leftLanguageText", selectedCode, selectedLanguage)
+                leftLanguageCode = selectedCode
+                leftLanguageButton.text = selectedLanguage
             }
         }
+
 
     private val rightLanguagePickerLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data = result.data
-                rightLanguageCode = data?.getStringExtra("selectedCode")
+                val selectedCode = data?.getStringExtra("selectedCode")
                 val selectedLanguage = data?.getStringExtra("selectedLanguage")
-                rightLanguageButton.text = selectedLanguage
 
-                saveLanguageSelection("rightLanguageCode", rightLanguageCode)
-                saveLanguageSelection("rightLanguageText", selectedLanguage)
+                saveLanguageSelection("rightLanguageCode", "rightLanguageText", selectedCode, selectedLanguage)
+                rightLanguageCode = selectedCode
+                rightLanguageButton.text = selectedLanguage
             }
         }
 
-    private fun saveLanguageSelection(key: String, value: String?) {
-        languagePreferences.edit().putString(key, value).apply()
+
+    private fun saveLanguageSelection(codeKey: String, labelKey: String, codeValue: String?, labelValue: String?) {
+        if (codeValue.isNullOrEmpty() || labelValue.isNullOrEmpty()) {
+            Log.e("LanguageDebug", "Attempted to save empty values for keys: $codeKey, $labelKey")
+            return
+        }
+
+        Log.d("LanguageDebug", "Saving $codeKey = $codeValue, $labelKey = $labelValue")
+
+        languagePreferences.edit()
+            .putString(codeKey, codeValue)
+            .putString(labelKey, labelValue)
+            .apply()
     }
+
+
 
     private fun loadSavedLanguages() {
         leftLanguageCode = languagePreferences.getString("leftLanguageCode", null)
@@ -113,18 +127,38 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val leftLanguageText = languagePreferences.getString("leftLanguageText", getString(R.string.select_language))
         val rightLanguageText = languagePreferences.getString("rightLanguageText", getString(R.string.select_language))
 
+        Log.d("LanguageDebug", "Loaded from prefs - Left: $leftLanguageCode | Right: $rightLanguageCode")
+        Log.d("LanguageDebug", "Loaded UI Labels - Left: $leftLanguageText | Right: $rightLanguageText")
+
+        if (leftLanguageCode.isNullOrEmpty() || rightLanguageCode.isNullOrEmpty()) {
+            showToast(getString(R.string.select_two_languages))
+            return
+        }
+
         leftLanguageButton.text = leftLanguageText
         rightLanguageButton.text = rightLanguageText
     }
+
+
 
     private fun startVoiceRecognition() {
         if (speechRecognizer == null) {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         }
 
+        if (leftLanguageCode.isNullOrEmpty() || rightLanguageCode.isNullOrEmpty()) {
+            showToast(getString(R.string.select_two_languages))
+            return
+        }
+
+        val languageToListen = leftLanguageCode ?: rightLanguageCode ?: Locale.getDefault().language
+
+        Log.d("SpeechRecognition", "Listening for language: $languageToListen")
+
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, leftLanguageCode ?: Locale.getDefault().language)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageToListen)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, languageToListen)
         }
 
         speechRecognizer?.setRecognitionListener(object : RecognitionListener {
@@ -162,6 +196,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         speechRecognizer?.startListening(intent)
     }
 
+
     private fun processTranslation(detectedText: String) {
         if (leftLanguageCode == null || rightLanguageCode == null) {
             showToast(getString(R.string.language_codes_missing))
@@ -169,11 +204,16 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val detectedLanguage = openAIRepository.detectLanguage(detectedText)
+            val detectedLanguage = openAIRepository.detectLanguage(detectedText)?.substring(0, 2)?.lowercase()
+
+            val normalizedLeft = leftLanguageCode?.substring(0, 2)?.lowercase()
+            val normalizedRight = rightLanguageCode?.substring(0, 2)?.lowercase()
+
+            Log.d("TranslationDebug", "Detected: $detectedLanguage | Left: $normalizedLeft | Right: $normalizedRight")
 
             val targetLanguage = when (detectedLanguage) {
-                leftLanguageCode -> rightLanguageCode
-                rightLanguageCode -> leftLanguageCode
+                normalizedLeft -> rightLanguageCode
+                normalizedRight -> leftLanguageCode
                 else -> {
                     showToast(getString(R.string.unrecognized_language))
                     return@launch
@@ -185,12 +225,15 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+
+
+
+
     private fun speakText(text: String, languageCode: String) {
-        val locale = when (languageCode) {
-            "es" -> Locale("es", "ES")
-            "en" -> Locale("en", "US")
-            else -> Locale.getDefault()
-        }
+        val locale = Locale(languageCode)
+
+        Log.d("SpeechSynthesis", "Speaking in: $locale")
+
         textToSpeech.language = locale
 
         val speechRate = speechPreferences.getFloat("speechRate", 1.0f)
@@ -200,6 +243,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         textToSpeech.setPitch(speechPitch)
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
+
 
     override fun onDestroy() {
         speechRecognizer?.destroy()

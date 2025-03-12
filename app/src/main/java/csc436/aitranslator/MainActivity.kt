@@ -69,8 +69,10 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        /* TEST SYSTEM LANGUAGE: change language code to test*/
-        setAppLanguage("en")
+        /* TEST SYSTEM LANGUAGE: change language code to test
+        * need to look at strings.xml and place a language code in
+        * don't forget to rebuild the app. if just ran, will not change everything*/
+//        setAppLanguage("en")
 
 
         super.onCreate(savedInstanceState)
