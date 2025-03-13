@@ -18,7 +18,7 @@ AI Translator is a real-time multilingual translation app for Android, allowing 
 - **Speech Recognition** – Converts spoken words into text for real-time chat
 
 ### 📷 Camera OCR & Image Translation
-- **CameraX API & Google ML OCR** – Extracts text from images for instant translation
+- **Google ML OCR** – Extracts text from images for instant translation
 
 ### 🌍 Language & Localization
 - **Dynamic Language Switching** – Matches the user's system language automatically
@@ -53,7 +53,7 @@ AI Translator is a real-time multilingual translation app for Android, allowing 
 ## 📂 Installation Steps
 #### 1️⃣ Clone the repository:
 ```sh
-git clone https://github.com/yourusername/ai-translator.git
+git clone https://github.com/jhueyy/ai-translator.git
 ```
 #### 2️⃣ Open in Android Studio and let Gradle sync.
 #### 3️⃣ Set up OpenAI API key:
