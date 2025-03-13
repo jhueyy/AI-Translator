@@ -59,6 +59,7 @@ git clone https://github.com/jhueyy/ai-translator.git
 #### 3️⃣ Set up OpenAI API key:
 - Locate **`SAMPLE-OpenAIService.kt`** in `/src/main/java/csc436/aitranslator/`
 - Rename the file from **`SAMPLE-OpenAIService.kt`** to **`OpenAIService.kt`**
+- And rename the interface to OpenAIService below the import statements  
 - Open the file and replace:
   ```kotlin
   "Authorization" to "Bearer KEY GOES HERE"
@@ -69,6 +70,8 @@ git clone https://github.com/jhueyy/ai-translator.git
   ```
 - **Never share your API key publicly**.
 #### 4️⃣ Build and run the app on a real device or emulator.
+- Note: Developer might need to allow microphone and camera permissions for Android Studio on computer
+
 
 ### 📩 Contact
 - **Jake Huey** – [jahuey@calpoly.edu](mailto:jahuey@calpoly.edu)  
