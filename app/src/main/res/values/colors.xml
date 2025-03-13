@@ -1,6 +1,5 @@
 <resources>
     <color name="dark_background">#1A1A2E</color>
     <color name="neon_purple">#9D00FF</color>
-    <color name="button_purple">#6A0DAD</color>
     <color name="text_white">#FFFFFF</color>
 </resources>
