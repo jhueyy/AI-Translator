@@ -35,12 +35,30 @@ class App : Application() {
 
         }
 
-        fun getSavedLanguage(): String {
-            val sharedPreferences = instance.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            val savedLanguage = sharedPreferences.getString(KEY_LANGUAGE, Locale.getDefault().language) ?: "en"
+        /*
+         TESTING METHOD:
+         edit the debugLanguage : String? = null
+         change null to be the language code we want to test for example spanish
 
-            return if (supportedLanguages.contains(savedLanguage)) savedLanguage else "en"
+         */
+        fun getSavedLanguage(): String {
+            // Debugging override: Set this to force a language for testing
+            val debugLanguage: String? = null //"es // Change this to "es", "fr", etc., to test
+
+            if (debugLanguage != null && supportedLanguages.contains(debugLanguage)) {
+                return debugLanguage // Force the app language for testing
+            }
+
+            // Otherwise, use the system language
+            val systemLanguage = Locale.getDefault().language
+            return if (supportedLanguages.contains(systemLanguage)) {
+                systemLanguage
+            } else {
+                "en" // Default to English if system language isn't supported
+            }
         }
+
+
 
         fun applyLanguageToContext(context: Context): Context {
             val locale = Locale(getSavedLanguage())
@@ -58,10 +76,7 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-        // Ensure only supported languages are applied
         val languageToApply = getSavedLanguage()
         setAppLanguage(languageToApply)
-        // to test different languages, enter the language code
-        // if language code is not in the list/xml, then we default to english
     }
 }
