@@ -2,18 +2,23 @@ package csc436.aitranslator
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.LocaleList
-import java.util.Locale
+import java.util.*
 
 class App : Application() {
+
     companion object {
         lateinit var instance: App
             private set
 
         private const val PREFS_NAME = "AppSettings"
         private const val KEY_LANGUAGE = "selectedLanguage"
+
+        private val supportedLanguages = setOf(
+            "en", "es", "fr", "de", "it", "ru", "ja", "ko", "zh", "ar", "hi",
+            "pt", "nl", "sv", "da", "no", "fi", "pl", "cs", "tr", "el"
+        )
 
         fun setAppLanguage(languageCode: String) {
             val sharedPreferences = instance.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -26,12 +31,15 @@ class App : Application() {
             config.setLocale(locale)
             config.setLocales(LocaleList(locale))
 
-            instance.resources.updateConfiguration(config, instance.resources.displayMetrics)
+            instance.applicationContext.createConfigurationContext(config)
+
         }
 
         fun getSavedLanguage(): String {
             val sharedPreferences = instance.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            return sharedPreferences.getString(KEY_LANGUAGE, Locale.getDefault().language) ?: "en"
+            val savedLanguage = sharedPreferences.getString(KEY_LANGUAGE, Locale.getDefault().language) ?: "en"
+
+            return if (supportedLanguages.contains(savedLanguage)) savedLanguage else "en"
         }
 
         fun applyLanguageToContext(context: Context): Context {
@@ -49,6 +57,11 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        setAppLanguage(getSavedLanguage()) // Apply saved language at startup
+
+        // Ensure only supported languages are applied
+        val languageToApply = getSavedLanguage()
+        setAppLanguage(languageToApply)
+        // to test different languages, enter the language code
+        // if language code is not in the list/xml, then we default to english
     }
 }

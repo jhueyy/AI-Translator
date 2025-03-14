@@ -69,12 +69,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        /* TEST SYSTEM LANGUAGE: change language code to test
-        * need to look at strings.xml and place a language code in
-        * don't forget to rebuild the app. if just ran, will not change everything*/
-//        setAppLanguage("en")
-
-
+        /* TEST SYSTEM LANGUAGE moved to App class*/
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()

@@ -39,7 +39,7 @@ class LiveChatActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private val openAIRepository = OpenAIRepository()
 
-    fun Context.isOnline(): Boolean {
+    private fun Context.isOnline(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
