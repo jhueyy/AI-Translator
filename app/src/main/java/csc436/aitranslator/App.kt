@@ -40,10 +40,14 @@ class App : Application() {
          edit the debugLanguage : String? = null
          change null to be the language code we want to test for example spanish
 
+        EXAMPLES:
+        // val debugLanguage: String? =  null  // code for NOT testing
+        // val debugLanguage: String? =  "es"  // code for testing
          */
         fun getSavedLanguage(): String {
             // Debugging override: Set this to force a language for testing
-            val debugLanguage: String? = null //"es // Change this to "es", "fr", etc., to test
+            val debugLanguage: String? =  null //"es" // Change this to language codes
+
 
             if (debugLanguage != null && supportedLanguages.contains(debugLanguage)) {
                 return debugLanguage // Force the app language for testing
