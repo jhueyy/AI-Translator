@@ -137,6 +137,18 @@ class MainActivity : AppCompatActivity() {
                 if (isNetworkAvailable()) {
                     translateButton.isEnabled = false
                     startTranslatingAnimation()
+
+                    // If no language is selected, default to system language
+                    if (selectedLanguageCode.isEmpty() || languageButton.text == getString(R.string.select_language)) {
+                        selectedLanguageCode = Locale.getDefault().language
+                    }
+
+                    // Ensure the selected language is in the supported list, otherwise default to English
+                    if (!App.supportedLanguages.contains(selectedLanguageCode)) {
+                        selectedLanguageCode = "en" // Default to English if unsupported
+                    }
+
+                    // Perform translation
                     viewModel.translateText(text, selectedLanguageCode)
                 } else {
                     showToast(getString(R.string.no_internet))
@@ -145,6 +157,8 @@ class MainActivity : AppCompatActivity() {
                 showToast(getString(R.string.enter_text_to_translate))
             }
         }
+
+
 
         speakerButton.setOnClickListener {
             val text = outputText.text.toString().trim()

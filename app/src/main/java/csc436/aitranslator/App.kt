@@ -15,7 +15,7 @@ class App : Application() {
         private const val PREFS_NAME = "AppSettings"
         private const val KEY_LANGUAGE = "selectedLanguage"
 
-        private val supportedLanguages = setOf(
+        val supportedLanguages = setOf(
             "en", "es", "fr", "de", "it", "ru", "ja", "ko", "zh", "ar", "hi",
             "pt", "nl", "sv", "da", "no", "fi", "pl", "cs", "tr", "el"
         )
