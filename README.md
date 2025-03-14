@@ -59,7 +59,7 @@ git clone https://github.com/jhueyy/ai-translator.git
 #### 3️⃣ Set up OpenAI API key:
 - Locate **`SAMPLE-OpenAIService.kt`** in `/src/main/java/csc436/aitranslator/`
 - Rename the file from **`SAMPLE-OpenAIService.kt`** to **`OpenAIService.kt`**
-- And rename the interface to OpenAIService below the import statements  
+- And rename the interface to OpenAIService below the import statements. The app will fail to build if OpenAIService.kt is not an interface named OpenAIService
 - Open the file and replace:
   ```kotlin
   "Authorization" to "Bearer KEY GOES HERE"
