@@ -72,7 +72,3 @@ git clone https://github.com/jhueyy/ai-translator.git
 #### 4️⃣ Build and run the app on a real device or emulator.
 - Note: Developer might need to allow microphone and camera permissions for Android Studio on computer
 
-
-### 📩 Contact
-- **Jake Huey** – [jahuey@calpoly.edu](mailto:jahuey@calpoly.edu)  
-- **Cristian Castro** – [ccastroo@calpoly.edu](mailto:ccastroo@calpoly.edu)  
